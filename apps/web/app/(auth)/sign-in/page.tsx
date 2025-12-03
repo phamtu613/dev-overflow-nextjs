@@ -1,72 +1,81 @@
 "use client";
 
-import { useState } from "react";
-import { useSignIn } from "@clerk/nextjs";
-
+import { useEffect, useState } from "react";
+import { useAuth, useSignIn } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 export default function SignInPage() {
   const { signIn, isLoaded } = useSignIn();
 
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const { isSignedIn } = useAuth();
 
+  // IF ALREADY SIGNED-IN → REDIRECT USING EFFECT
+  const router = useRouter();
+
+  // Nếu đã login → redirect
+  useEffect(() => {
+    if (isLoaded && isSignedIn) {
+      router.push("/");
+    }
+  }, [isLoaded, isSignedIn]);
+
+  if (!isLoaded || isSignedIn) return null;
   if (!isLoaded) return null;
-const OAUTH_MAP = {
-  google: "oauth_google",
-  facebook: "oauth_facebook",
-  twitter: "oauth_x",    // 👈 KHÁC HOÀN TOÀN
-} as const;
-// Email login
-const handleEmail = async (e: any) => {
+  const OAUTH_MAP = {
+    google: "oauth_google",
+    facebook: "oauth_facebook",
+    twitter: "oauth_x",    // 👈 KHÁC HOÀN TOÀN
+  } as const;
+  // Email login
+  const handleEmail = async (e: any) => {
   e.preventDefault();
-  try {
-    const signInResponse = await signIn.create({ identifier: email });
 
-    const emailFactor = signInResponse.supportedFirstFactors?.find(
-      (factor: any) => factor.strategy === "email_code"
-    ) as any;
+  // Không gọi Clerk signIn.create ở đây
+  // Vì đây chỉ là step 1 của flow: nhập email -> sang trang password
 
-    await signIn.prepareFirstFactor({
-      strategy: "email_code",
-      emailAddressId: emailFactor?.emailAddressId,
-    });
-
-    window.location.href = "/verify-email";
-  } catch (err: any) {
-    setError(err?.errors?.[0]?.message || "Something went wrong");
+  if (!email) {
+    setError("Email is required");
+    return;
   }
+
+  // Redirect tới trang password (step 2)
+  window.location.href = `/sign-in/password?email=${encodeURIComponent(email)}`;
 };
 
-// OAuth login
-const handleOAuth = async (provider: keyof typeof OAUTH_MAP) => {
-  try {
-    await signIn.authenticateWithRedirect({
-      // cast to any because Clerk expects a narrow union type for strategy
-      strategy: OAUTH_MAP[provider] as any,
-      redirectUrl: "/sso-callback",
-      redirectUrlComplete: "/",
-    });
-  } catch (err: any) {
-    console.log(err);
-    setError(err?.errors?.[0]?.message || "OAuth failed");
-  }
-};
+
+
+  // OAuth login
+  const handleOAuth = async (provider: keyof typeof OAUTH_MAP) => {
+    try {
+      await signIn.authenticateWithRedirect({
+        // cast to any because Clerk expects a narrow union type for strategy
+        strategy: OAUTH_MAP[provider] as any,
+        redirectUrl: "/sso-callback",
+        redirectUrlComplete: "/",
+      });
+    } catch (err: any) {
+      console.log(err);
+      setError(err?.errors?.[0]?.message || "OAuth failed");
+    }
+  };
 
   return (
     <div className="min-h-screen w-full bg-black bg-[url('/bg_stackoverflow.svg')] bg-no-repeat bg-cover flex items-center justify-center relative">
       <div className="relative">
-        
+
         {/* BADGE — nằm ngoài card, không bị overflow hidden */}
-      <div className="absolute left-0 bottom-[48px] -translate-x-full -translate-y-2/3">
-        <div className="clerk-ribbon flex items-center gap-1 whitespace-nowrap">
-          Secured by
-          <img
-            src="/clerk.svg"
-            className="w-3 h-3 invert brightness-0 rotate-90"
-            alt="clerk"
-          />
-          Clerk
+        <div className="absolute left-0 bottom-[48px] -translate-x-full -translate-y-2/3">
+          <div className="clerk-ribbon flex items-center gap-1 whitespace-nowrap">
+            Secured by
+            <img
+              src="/clerk.svg"
+              className="w-3 h-3 invert brightness-0 rotate-90"
+              alt="clerk"
+            />
+            Clerk
+          </div>
         </div>
-      </div>
 
       </div>
       <div className="absolute inset-0 opacity-20">
@@ -120,24 +129,26 @@ const handleOAuth = async (provider: keyof typeof OAUTH_MAP) => {
           <label className="text-gray-300 text-sm mb-2">Email address</label>
 
           <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="
-              w-full px-4 py-3 
-              bg-[#151821]
-              rounded-xl
-              text-white
-              focus:border-[#FF7000]
-              focus:border-b-2
-
-              caret-[#FF7000]
-
-              focus:outline-none
-              focus:ring-0
-              focus-visible:ring-0
-
-              focus:shadow-[0_2px_0_0_#FF7000]   /* nhẹ, mịn */
-              transition-all duration-200
-            "
+    w-full px-4 py-3 
+    bg-[#151821]
+    rounded-xl
+    text-white
+    focus:border-[#FF7000]
+    focus:border-b-2
+    caret-[#FF7000]
+    focus:outline-none
+    focus:ring-0
+    focus-visible:ring-0
+    focus:shadow-[0_2px_0_0_#FF7000]
+    transition-all duration-200
+  "
+            required
           />
+
 
 
           <button
