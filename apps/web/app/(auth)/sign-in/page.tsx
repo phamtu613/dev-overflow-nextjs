@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useAuth, useSignIn } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 export default function SignInPage() {
   const { signIn, isLoaded } = useSignIn();
 
@@ -25,25 +25,23 @@ export default function SignInPage() {
   const OAUTH_MAP = {
     google: "oauth_google",
     facebook: "oauth_facebook",
-    twitter: "oauth_x",    // 👈 KHÁC HOÀN TOÀN
+    twitter: "oauth_x", // 👈 KHÁC HOÀN TOÀN
   } as const;
   // Email login
   const handleEmail = async (e: any) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  // Không gọi Clerk signIn.create ở đây
-  // Vì đây chỉ là step 1 của flow: nhập email -> sang trang password
+    // Không gọi Clerk signIn.create ở đây
+    // Vì đây chỉ là step 1 của flow: nhập email -> sang trang password
 
-  if (!email) {
-    setError("Email is required");
-    return;
-  }
+    if (!email) {
+      setError("Email is required");
+      return;
+    }
 
-  // Redirect tới trang password (step 2)
-  window.location.href = `/sign-in/password?email=${encodeURIComponent(email)}`;
-};
-
-
+    // Redirect tới trang password (step 2)
+    window.location.href = `/sign-in/password?email=${encodeURIComponent(email)}`;
+  };
 
   // OAuth login
   const handleOAuth = async (provider: keyof typeof OAUTH_MAP) => {
@@ -63,9 +61,8 @@ export default function SignInPage() {
   return (
     <div className="min-h-screen w-full bg-black bg-[url('/bg_stackoverflow.svg')] bg-no-repeat bg-cover flex items-center justify-center relative">
       <div className="relative">
-
         {/* BADGE — nằm ngoài card, không bị overflow hidden */}
-        <div className="absolute left-0 bottom-[48px] -translate-x-full -translate-y-2/3">
+        <div className="absolute left-0 bottom-12 -translate-x-full -translate-y-2/3">
           <div className="clerk-ribbon flex items-center gap-1 whitespace-nowrap">
             Secured by
             <img
@@ -76,7 +73,6 @@ export default function SignInPage() {
             Clerk
           </div>
         </div>
-
       </div>
       <div className="absolute inset-0 opacity-20">
         <div className="h-96 w-96 bg-orange-500 rounded-full blur-[150px] absolute top-10 left-20"></div>
@@ -84,10 +80,11 @@ export default function SignInPage() {
       </div>
 
       <div className="relative w-full max-w-md bg-[#1a1d29]/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 px-8 py-10 space-y-8">
-
         <div className="flex items-center gap-3 mb-8 text-white">
           <img src="/logo.svg" alt="logo" className="h-10 w-10 object-cover" />
-          <p className="text-[24.8px]">Dev<strong className="text-accent">Overflow</strong></p>
+          <p className="text-[24.8px]">
+            Dev<strong className="text-accent">Overflow</strong>
+          </p>
         </div>
         <div className="flex flex-col">
           <h1 className="text-xl font-semibold text-white">Sign in</h1>
@@ -120,9 +117,7 @@ export default function SignInPage() {
           </button>
         </div>
 
-        {error && (
-          <p className="text-red-400 text-center text-sm">{error}</p>
-        )}
+        {error && <p className="text-red-400 text-center text-sm">{error}</p>}
 
         {/* Email input */}
         <form onSubmit={handleEmail} className="space-y-4">
@@ -149,8 +144,6 @@ export default function SignInPage() {
             required
           />
 
-
-
           <button
             type="submit"
             className="w-full py-3 rounded-xl font-semibold shadow-lg text-white transition
@@ -159,7 +152,6 @@ export default function SignInPage() {
             CONTINUE
           </button>
         </form>
-
 
         <div className="flex justify-between text-gray-500 text-sm pt-4">
           <div>
