@@ -9,7 +9,7 @@
 │                    FRONTEND MONOREPO                         │
 │  ┌──────────────┐         ┌──────────────┐                 │
 │  │  apps/web    │         │  apps/docs   │                 │
-│  │  (Port 3000) │         │  (Port 3001) │                 │
+│  │  (Port 7777) │         │  (Port 3001) │                 │
 │  └──────┬───────┘         └──────────────┘                 │
 │         │                                                    │
 │         │ uses                                              │
@@ -392,7 +392,7 @@ export default function ButtonDocs() {
 | ---------------- | ------------------------ | ---------------------------- |
 | **Mục đích**     | Production app cho users | Documentation cho developers |
 | **Deploy**       | Production (public)      | Internal hoặc docs site      |
-| **Port**         | 3000                     | 3001                         |
+| **Port**         | 7777                     | 3001                         |
 | **Features**     | Full app features        | Docs, examples, demos        |
 | **Users**        | End users                | Internal team                |
 | **Dependencies** | Full (schemas)           | Minimal (chỉ schemas)        |
@@ -795,9 +795,9 @@ pnpm --filter docs dev
 
 ### Port Mặc Định
 
-- **web**: http://localhost:3000
+- **web**: http://localhost:7777
 - **docs**: http://localhost:3001
-- **examples**: http://localhost:3000/examples (Login/Register forms demo)
+- **examples**: http://localhost:7777/examples (Login/Register forms demo)
 
 ---
 
@@ -1116,7 +1116,7 @@ Frontend (Monorepo này)          Backend (Repository riêng)
 ┌─────────────────────┐         ┌──────────────────────┐
 │   apps/web          │         │   NestJS API         │
 │   (Next.js)         │────────▶│   (TypeScript)       │
-│   Port 3000         │  HTTP   │   Port 4000/8000     │
+│   Port 7777         │  HTTP   │   Port 4000/8000     │
 └─────────────────────┘         └──────────────────────┘
          │                                │
          │                                │
@@ -2157,7 +2157,7 @@ const nextConfig = {
 
 ### Example Pages
 
-- Login/Register Forms: http://localhost:3000/examples
+- Login/Register Forms: http://localhost:7777/examples
 - Component Showcase: (Tạo thêm nếu cần)
 
 ---
@@ -2168,7 +2168,7 @@ const nextConfig = {
 
 #### 🚀 Apps (2)
 
-- ✅ **apps/web** - Production app (port 3000)
+- ✅ **apps/web** - Production app (port 7777)
   - Setup shadcn/ui với 13 components (Button, Form, Input, Card, etc.)
   - Example forms: Login & Register với validation
   - Integrated với @repo/schemas, local stores, local UI components
@@ -2210,8 +2210,8 @@ Truy cập các URLs sau khi chạy `pnpm dev`:
 
 | URL                            | Description                        |
 | ------------------------------ | ---------------------------------- |
-| http://localhost:3000          | Homepage của apps/web              |
-| http://localhost:3000/examples | 📚 **Login & Register Forms Demo** |
+| http://localhost:7777          | Homepage của apps/web              |
+| http://localhost:7777/examples | 📚 **Login & Register Forms Demo** |
 | http://localhost:3001          | Apps/docs homepage                 |
 
 ### Example Usage
@@ -2284,7 +2284,7 @@ Sau khi đọc tài liệu này, bạn có thể:
 ### Học thêm
 
 - Đọc kỹ phần [Best Practices](#best-practices)
-- Xem [Example Forms](http://localhost:3000/examples) để hiểu cách kết hợp React Hook Form + Zod + Zustand
+- Xem [Example Forms](http://localhost:7777/examples) để hiểu cách kết hợp React Hook Form + Zod + Zustand
 - Thử tạo component mới theo hướng dẫn trong phần [Làm Việc với Packages](#làm-việc-với-packages)
 
 ---
