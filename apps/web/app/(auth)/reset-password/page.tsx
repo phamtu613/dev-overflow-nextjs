@@ -45,9 +45,12 @@ export default function ResetPasswordPage() {
           Set new password
         </h2>
 
-        <p className="text-gray-400 mb-6">New password must be different</p>
+        <p className="text-gray-400 mb-6">
+          New password must be different
+        </p>
 
         <form onSubmit={handleReset} className="space-y-4">
+
           <div>
             <label className="text-gray-300 text-sm">Password</label>
             <input

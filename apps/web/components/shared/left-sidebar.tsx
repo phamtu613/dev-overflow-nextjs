@@ -16,7 +16,7 @@ const LeftSidebar = () => {
               "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-base font-medium",
               item.active
                 ? "bg-primary text-primary-foreground"
-                : "text-background dark:hover:bg-muted hover:text-foreground hover:bg-primary",
+                : "text-background dark:hover:bg-muted hover:text-foreground hover:bg-primary"
             )}
           >
             {item.icon}

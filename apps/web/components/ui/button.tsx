@@ -48,7 +48,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         className={cn(
           "cursor-pointer",
-          buttonVariants({ variant, size, className }),
+          buttonVariants({ variant, size, className })
         )}
         ref={ref}
         {...props}

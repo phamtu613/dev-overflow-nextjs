@@ -20,7 +20,7 @@ export default function ForgotPasswordPage() {
       });
 
       const factor = attempt.supportedFirstFactors?.find(
-        (f) => f.strategy === "reset_password_email_code",
+        (f) => f.strategy === "reset_password_email_code"
       );
 
       await client.signIn.prepareFirstFactor({
@@ -38,9 +38,14 @@ export default function ForgotPasswordPage() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-black">
       <div className="w-full max-w-lg rounded-2xl bg-[#111] p-8 border border-white/10 shadow-lg">
+<<<<<<< HEAD
         <h2 className="text-2xl font-semibold text-white mb-2">
           Forgot password?
         </h2>
+=======
+
+        <h2 className="text-2xl font-semibold text-white mb-2">Forgot password?</h2>
+>>>>>>> main
         <p className="text-gray-400 mb-6">
           No worries, we’ll send you reset instructions.
         </p>

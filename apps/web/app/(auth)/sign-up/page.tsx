@@ -12,9 +12,9 @@ export default function SignUpPage() {
   const { signIn, isLoaded: signInLoaded } = useSignIn();
 
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail]       = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError]       = useState("");
 
   // Clerk chưa load xong → tránh lỗi
   if (!signUpLoaded || !signInLoaded) return null;
@@ -112,9 +112,7 @@ export default function SignUpPage() {
 
         <p className="text-gray-400 text-sm mt-4 text-center">
           Already have an account?{" "}
-          <a href="/sign-in" className="text-orange-400">
-            Sign in
-          </a>
+          <a href="/sign-in" className="text-orange-400">Sign in</a>
         </p>
 
         {/* 🔥 OAuth */}

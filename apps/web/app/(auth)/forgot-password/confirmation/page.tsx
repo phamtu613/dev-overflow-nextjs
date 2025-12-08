@@ -24,7 +24,7 @@ export default function ForgotPasswordConfirmation() {
       });
 
       const factor = attempt.supportedFirstFactors?.find(
-        (f) => f.strategy === "reset_password_email_code",
+        (f) => f.strategy === "reset_password_email_code"
       );
 
       await client.signIn.prepareFirstFactor({
@@ -35,7 +35,7 @@ export default function ForgotPasswordConfirmation() {
       setResent(true);
       setLoading(false);
 
-      router.push(`/reset-password?email=${email}`);
+       router.push(`/reset-password?email=${email}`);
     } catch (err) {
       console.error(err);
       setLoading(false);
@@ -68,7 +68,7 @@ export default function ForgotPasswordConfirmation() {
         </button>
 
         <button
-          onClick={() => router.push("/sign-in")}
+          onClick={() => router.push('/sign-in')}
           className="
             text-gray-400 text-[14px] mt-4 block text-center
             hover:text-gray-200 transition-all

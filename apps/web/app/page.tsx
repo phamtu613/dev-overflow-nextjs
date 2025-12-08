@@ -211,6 +211,10 @@ export default function HomePage() {
 
                     {/* BOTTOM INFO ROW */}
                     <div className="flex items-center justify-between pt-2 border-t border-white/5">
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
                       {/* LEFT: AUTHOR */}
                       <div className="flex items-center gap-2 text-[13px] text-gray-400">
                         {/* Avatar */}
@@ -232,11 +236,7 @@ export default function HomePage() {
                             stroke="currentColor"
                             strokeWidth="2"
                           >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M5 15l7-7 7 7"
-                            />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
                           </svg>
                           <span className="text-gray-300">{q.votes}</span>
                           <span className="text-gray-500">Votes</span>
@@ -286,9 +286,11 @@ export default function HomePage() {
                           <span className="text-gray-300">{q.views}</span>
                           <span className="text-gray-500">Views</span>
                         </div>
+
                       </div>
                     </div>
                   </CardContent>
+
                 </Card>
               ))}
             </div>
@@ -340,10 +342,9 @@ function SidebarItem({ icon, label, active }: any) {
   return (
     <button
       className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition
-        ${
-          active
-            ? "bg-orange-500 text-white shadow"
-            : "text-gray-300 hover:bg-[#141922]"
+        ${active
+          ? "bg-orange-500 text-white shadow"
+          : "text-gray-300 hover:bg-[#141922]"
         }`}
     >
       <span className="text-lg">{icon}</span>
