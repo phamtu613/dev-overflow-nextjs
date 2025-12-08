@@ -60,8 +60,8 @@ pnpm dev
 
 ### Access
 
-- **Main app**: http://localhost:3000
-- **Examples**: http://localhost:3000/examples
+- **Main app**: http://localhost:7777
+- **Examples**: http://localhost:7777/examples
 - **Docs**: http://localhost:3001
 
 ---
@@ -120,7 +120,7 @@ pnpm dlx shadcn@latest add <component>
 
 ```
 ├── apps/
-│   ├── web/              # Main app (Port 3000)
+│   ├── web/              # Main app (Port 7777)
 │   │   ├── components/ui/  # shadcn/ui components
 │   │   └── stores/         # Zustand stores
 │   └── docs/             # Docs site (Port 3001)

@@ -13,7 +13,9 @@ import { SidebarItem } from "@/components/ui/sidebar-item";
 import { NAV_ITEMS } from "@/lib/constants/navigation";
 
 type NavItemFromConst = (typeof NAV_ITEMS)[number];
-const AppSidebarContext = React.createContext<{ pathname: string } | undefined>(undefined);
+const AppSidebarContext = React.createContext<{ pathname: string } | undefined>(
+  undefined,
+);
 
 interface AppSidebarProps {
   children: React.ReactNode;
@@ -29,21 +31,36 @@ function AppSidebar({ children }: AppSidebarProps) {
   );
 }
 
-AppSidebar.Header = function AppSidebarHeader({ children }: { children: React.ReactNode }) {
+AppSidebar.Header = function AppSidebarHeader({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return <SidebarHeader>{children}</SidebarHeader>;
 };
 
-AppSidebar.Content = function AppSidebarContent({ children }: { children: React.ReactNode }) {
+AppSidebar.Content = function AppSidebarContent({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return <SidebarContent>{children}</SidebarContent>;
 };
 
-AppSidebar.Footer = function AppSidebarFooter({ children }: { children: React.ReactNode }) {
+AppSidebar.Footer = function AppSidebarFooter({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return <SidebarFooter>{children}</SidebarFooter>;
 };
 
-AppSidebar.NavItems = function AppSidebarNavItems({ items = NAV_ITEMS }: { items?: readonly Partial<NavItemFromConst>[] } = {}) {
+AppSidebar.NavItems = function AppSidebarNavItems({
+  items = NAV_ITEMS,
+}: { items?: readonly Partial<NavItemFromConst>[] } = {}) {
   const context = React.useContext(AppSidebarContext);
-  if (!context) throw new Error("AppSidebar.NavItems must be used within AppSidebar");
+  if (!context)
+    throw new Error("AppSidebar.NavItems must be used within AppSidebar");
   const { pathname } = context;
 
   // Build a link that goes up one level from the current pathname, then appends item.href
@@ -67,7 +84,9 @@ AppSidebar.NavItems = function AppSidebarNavItems({ items = NAV_ITEMS }: { items
         if (!item.href || !item.label) return null;
         const IconComponent = item.icon;
         const iconNode = IconComponent ? (
-          <IconComponent className={`h-4 w-4 ${item.color || "text-gray-500"}`} />
+          <IconComponent
+            className={`h-4 w-4 ${item.color || "text-gray-500"}`}
+          />
         ) : undefined;
 
         const computedHref = joinHref(parentPath, item.href);

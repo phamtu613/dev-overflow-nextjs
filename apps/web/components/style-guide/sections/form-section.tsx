@@ -34,11 +34,7 @@ export function FormSection() {
 
             <div className="space-y-2">
               <Label htmlFor="email">Email Input</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="email@example.com"
-              />
+              <Input id="email" type="email" placeholder="email@example.com" />
             </div>
 
             <div className="space-y-2">
@@ -249,4 +245,3 @@ export function FormSection() {
     </div>
   );
 }
-

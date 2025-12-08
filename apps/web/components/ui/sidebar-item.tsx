@@ -17,11 +17,12 @@ const sidebarItemVariants = cva(
     defaultVariants: {
       active: false,
     },
-  }
+  },
 );
 
 export interface SidebarItemProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
+  extends
+    React.AnchorHTMLAttributes<HTMLAnchorElement>,
     VariantProps<typeof sidebarItemVariants> {
   icon?: React.ReactNode;
   label: string;
@@ -44,7 +45,7 @@ const SidebarItem = React.forwardRef<HTMLAnchorElement, SidebarItemProps>(
         <span>{label}</span>
       </Comp>
     );
-  }
+  },
 );
 
 SidebarItem.displayName = "SidebarItem";
