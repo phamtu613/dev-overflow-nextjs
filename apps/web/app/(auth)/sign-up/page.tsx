@@ -64,7 +64,6 @@ export default function SignUpPage() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-black">
       <div className="w-full max-w-md rounded-2xl bg-[#111] p-8 shadow-lg border border-white/10">
-
         <h2 className="text-2xl font-semibold text-white">
           Create your account
         </h2>

@@ -5,6 +5,7 @@ import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import { QueryProvider } from "@/lib/react-query/QueryProvider";
 
 const inter = Inter({
   subsets: ["latin"],

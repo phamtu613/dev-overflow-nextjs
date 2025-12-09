@@ -582,8 +582,8 @@ export const useAuthStore = create<AuthState>()(
       login: (user) => set({ user, isAuthenticated: true }),
       logout: () => set({ user: null, isAuthenticated: false }),
     }),
-    { name: "auth-storage" } // Persist to localStorage
-  )
+    { name: "auth-storage" }, // Persist to localStorage
+  ),
 );
 ```
 
@@ -1163,7 +1163,7 @@ apiClient.interceptors.response.use(
       window.location.href = "/login";
     }
     return Promise.reject(error);
-  }
+  },
 );
 ```
 
@@ -1479,8 +1479,8 @@ export const useCartStore = create<CartState>()(
     }),
     {
       name: "cart-storage",
-    }
-  )
+    },
+  ),
 );
 
 // Export trong index.ts

@@ -55,7 +55,7 @@ export const authService = {
   login: async (data: LoginInput): Promise<LoginResponse> => {
     const response = await apiClient.post<LoginResponse>(
       "/api/auth/login",
-      data
+      data,
     );
 
     // Save tokens to localStorage
@@ -74,7 +74,7 @@ export const authService = {
   register: async (data: RegisterInput): Promise<RegisterResponse> => {
     const response = await apiClient.post<RegisterResponse>(
       "/api/auth/register",
-      data
+      data,
     );
     return response.data;
   },
@@ -115,7 +115,7 @@ export const authService = {
 
     const response = await apiClient.post<{ access_token: string }>(
       "/api/auth/refresh",
-      { refresh_token: refreshToken }
+      { refresh_token: refreshToken },
     );
 
     // Update access token

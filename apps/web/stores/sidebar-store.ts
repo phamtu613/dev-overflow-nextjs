@@ -23,6 +23,6 @@ export const useSidebarStore = create<SidebarState>()(
     }),
     {
       name: "sidebar-storage",
-    }
-  )
+    },
+  ),
 );

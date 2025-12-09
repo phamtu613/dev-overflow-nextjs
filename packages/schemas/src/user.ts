@@ -10,7 +10,7 @@ export const userProfileSchema = z.object({
     .max(20, "Username must not exceed 20 characters")
     .regex(
       /^[a-zA-Z0-9_-]+$/,
-      "Username can only contain letters, numbers, hyphens, and underscores"
+      "Username can only contain letters, numbers, hyphens, and underscores",
     ),
   fullName: z
     .string()
@@ -44,7 +44,7 @@ export const changePasswordSchema = z
       .min(8, "Password must be at least 8 characters")
       .regex(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-        "Password must contain at least one uppercase letter, one lowercase letter, and one number"
+        "Password must contain at least one uppercase letter, one lowercase letter, and one number",
       ),
     confirmPassword: z.string(),
   })
@@ -54,4 +54,3 @@ export const changePasswordSchema = z
   });
 
 export type ChangePasswordInput = z.infer<typeof changePasswordSchema>;
-

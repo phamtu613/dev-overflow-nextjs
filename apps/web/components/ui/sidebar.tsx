@@ -10,7 +10,7 @@ const Sidebar = React.forwardRef<
     ref={ref}
     className={cn(
       "flex flex-col h-screen w-64 border-r bg-background",
-      className
+      className,
     )}
     {...props}
   />
@@ -21,11 +21,7 @@ const SidebarHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("border-b px-4 py-3", className)}
-    {...props}
-  />
+  <div ref={ref} className={cn("border-b px-4 py-3", className)} {...props} />
 ));
 SidebarHeader.displayName = "SidebarHeader";
 
@@ -45,11 +41,7 @@ const SidebarFooter = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("border-t px-4 py-3", className)}
-    {...props}
-  />
+  <div ref={ref} className={cn("border-t px-4 py-3", className)} {...props} />
 ));
 SidebarFooter.displayName = "SidebarFooter";
 
@@ -57,11 +49,7 @@ const SidebarGroup = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("px-2 py-4", className)}
-    {...props}
-  />
+  <div ref={ref} className={cn("px-2 py-4", className)} {...props} />
 ));
 SidebarGroup.displayName = "SidebarGroup";
 
@@ -71,7 +59,10 @@ const SidebarGroupLabel = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("px-2 py-1.5 text-xs font-semibold text-muted-foreground", className)}
+    className={cn(
+      "px-2 py-1.5 text-xs font-semibold text-muted-foreground",
+      className,
+    )}
     {...props}
   />
 ));
@@ -81,11 +72,7 @@ const SidebarGroupContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("", className)}
-    {...props}
-  />
+  <div ref={ref} className={cn("", className)} {...props} />
 ));
 SidebarGroupContent.displayName = "SidebarGroupContent";
 
@@ -93,11 +80,7 @@ const SidebarMenu = React.forwardRef<
   HTMLUListElement,
   React.HTMLAttributes<HTMLUListElement>
 >(({ className, ...props }, ref) => (
-  <ul
-    ref={ref}
-    className={cn("list-none space-y-1", className)}
-    {...props}
-  />
+  <ul ref={ref} className={cn("list-none space-y-1", className)} {...props} />
 ));
 SidebarMenu.displayName = "SidebarMenu";
 
@@ -105,11 +88,7 @@ const SidebarMenuItem = React.forwardRef<
   HTMLLIElement,
   React.HTMLAttributes<HTMLLIElement>
 >(({ className, ...props }, ref) => (
-  <li
-    ref={ref}
-    className={cn("", className)}
-    {...props}
-  />
+  <li ref={ref} className={cn("", className)} {...props} />
 ));
 SidebarMenuItem.displayName = "SidebarMenuItem";
 
@@ -131,7 +110,7 @@ const SidebarMenuButton = React.forwardRef<
           isActive
             ? "bg-accent text-accent-foreground"
             : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
-          className
+          className,
         )}
         {...props}
       />
@@ -146,7 +125,7 @@ const SidebarMenuButton = React.forwardRef<
         isActive
           ? "bg-accent text-accent-foreground"
           : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
-        className
+        className,
       )}
       {...(props as unknown as React.HTMLAttributes<HTMLButtonElement>)}
     />

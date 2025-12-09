@@ -28,7 +28,6 @@ export default function VerifyEmail() {
       } else {
         setError("Invalid code");
       }
-
     } catch (err: any) {
       setError(err?.errors?.[0]?.message || "Verification failed");
     }
@@ -51,7 +50,6 @@ export default function VerifyEmail() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-black text-white">
       <div className="w-full max-w-md bg-[#1a1d29]/90 backdrop-blur-xl rounded-2xl border border-white/10 p-8">
-
         <h1 className="text-xl font-semibold mb-2">Verify your email</h1>
         <p className="text-gray-400 mb-6">
           Enter the 6-digit code we sent to your email.
@@ -62,7 +60,6 @@ export default function VerifyEmail() {
         )}
 
         <form onSubmit={handleVerify} className="space-y-4">
-
           <input
             type="text"
             value={code}
@@ -86,7 +83,6 @@ export default function VerifyEmail() {
         >
           Resend code
         </button>
-
       </div>
     </div>
   );

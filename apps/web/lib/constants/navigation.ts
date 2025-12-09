@@ -1,4 +1,12 @@
-import { Home, Users, Star, Tag, HelpCircle, ThumbsUp, type LucideIcon } from "lucide-react";
+import {
+  Home,
+  Users,
+  Star,
+  Tag,
+  HelpCircle,
+  ThumbsUp,
+  type LucideIcon,
+} from "lucide-react";
 
 export interface NavItem {
   href: string;

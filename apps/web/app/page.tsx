@@ -211,7 +211,10 @@ export default function HomePage() {
 
                     {/* BOTTOM INFO ROW */}
                     <div className="flex items-center justify-between pt-2 border-t border-white/5">
+<<<<<<< HEAD
+=======
 
+>>>>>>> main
                       {/* LEFT: AUTHOR */}
                       <div className="flex items-center gap-2 text-[13px] text-gray-400">
                         {/* Avatar */}
@@ -223,7 +226,6 @@ export default function HomePage() {
 
                       {/* RIGHT: META ICONS */}
                       <div className="flex items-center gap-6 text-[13px] text-gray-400">
-
                         {/* Votes */}
                         <div className="flex items-center gap-1">
                           <svg
@@ -329,7 +331,6 @@ export default function HomePage() {
           </div>
         </div>
       </main>
-
     </div>
   );
 }
