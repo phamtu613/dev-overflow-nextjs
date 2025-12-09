@@ -91,3 +91,16 @@ export interface TopTagItem {
   icon: string;
   count: number;
 }
+
+export interface Job {
+  id?: string;
+  job_title: string;
+  job_employment_type: string;
+  employer_name: string;
+  employer_logo?: string;
+  job_city: string;
+  job_country: string;
+  job_min_salary?: number;
+  job_max_salary?: number;
+  job_apply_link: string;
+}

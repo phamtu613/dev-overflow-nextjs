@@ -4,6 +4,8 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useClerk } from "@clerk/nextjs";
 import { useState } from "react";
 
+export const dynamic = "force-dynamic";
+
 export default function ForgotPasswordConfirmation() {
   const params = useSearchParams();
   const router = useRouter();

@@ -40,7 +40,7 @@ export default function VerifyEmail() {
     try {
       await signIn.prepareFirstFactor({
         strategy: "email_code",
-        emailAddress: signIn.identifier,
+        emailAddressId: signIn.identifier!,
       });
     } catch (err: any) {
       setError("Could not resend code");
