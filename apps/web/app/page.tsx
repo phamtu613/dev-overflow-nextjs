@@ -211,10 +211,6 @@ export default function HomePage() {
 
                     {/* BOTTOM INFO ROW */}
                     <div className="flex items-center justify-between pt-2 border-t border-white/5">
-<<<<<<< HEAD
-=======
-
->>>>>>> main
                       {/* LEFT: AUTHOR */}
                       <div className="flex items-center gap-2 text-[13px] text-gray-400">
                         {/* Avatar */}
