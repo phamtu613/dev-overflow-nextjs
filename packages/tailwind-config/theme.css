@@ -22,6 +22,20 @@
   --color-light-800: #f4f6f8;
   --color-light-850: #fdfdfd;
   --color-light-900: #ffffff;
+  --color-light-border-color: rgba(200, 203, 217, 0.33);
+
+  /* ========================================
+     SHADOWS
+     ======================================== */
+  --shadow-light-tag-card:
+    0px 12px 20px 0px rgba(184, 184, 184, 0.03),
+    0px 6px 12px 0px rgba(184, 184, 184, 0.02),
+    0px 2px 4px 0px rgba(184, 184, 184, 0.03);
+  --shadow-light-job-card:
+    0px 12px 20px 0px rgba(184, 184, 184, 0.03),
+    0px 6px 12px 0px rgba(184, 184, 184, 0.02),
+    0px 2px 4px 0px rgba(184, 184, 184, 0.03);
+  --shadow-xs: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 
   /* ========================================
      SHADCN/UI SEMANTIC COLORS (Light Mode)

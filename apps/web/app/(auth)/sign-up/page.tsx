@@ -1,32 +1,31 @@
 "use client";
 
-import { useState } from "react";
-import { useSignUp, useSignIn } from "@clerk/nextjs";
+import { AuthCard, AuthHeader } from "@/components/auth/auth-card";
+import { AuthInput } from "@/components/auth/auth-input";
+import { Button } from "@/components/ui/button";
+import { useSignIn, useSignUp } from "@clerk/nextjs";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function SignUpPage() {
   const router = useRouter();
-
-  // Clerk hooks
   const { signUp, isLoaded: signUpLoaded } = useSignUp();
   const { signIn, isLoaded: signInLoaded } = useSignIn();
 
   const [username, setUsername] = useState("");
-  const [email, setEmail]       = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError]       = useState("");
+  const [error, setError] = useState("");
 
-  // Clerk chưa load xong → tránh lỗi
   if (!signUpLoaded || !signInLoaded) return null;
 
-  // ------------------------
-  // EMAIL SIGNUP FLOW
-  // ------------------------
-  const handleEmailSignup = async (e: any) => {
+  // Email Signup Flow
+  const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const res = await signUp.create({
+      await signUp.create({
         username,
         emailAddress: email,
         password,
@@ -36,16 +35,14 @@ export default function SignUpPage() {
         strategy: "email_code",
       });
 
-      router.push("/");
+      router.push("/verify-email");
     } catch (err: any) {
       console.error(err);
       setError(err?.errors?.[0]?.message || "Something went wrong");
     }
   };
 
-  // ------------------------
-  // OAUTH SIGNUP FLOW (Google / GitHub)
-  // ------------------------
+  // OAuth Signup Flow
   const loginWith = async (provider: "github" | "google") => {
     try {
       await signIn.authenticateWithRedirect({
@@ -58,82 +55,95 @@ export default function SignUpPage() {
     }
   };
 
-  // ------------------------
-  // UI
-  // ------------------------
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black">
-      <div className="w-full max-w-md rounded-2xl bg-[#111] p-8 shadow-lg border border-white/10">
-        <h2 className="text-2xl font-semibold text-white">
-          Create your account
-        </h2>
-        <p className="text-gray-400 mb-6">to continue to DevFlow</p>
+    <AuthCard>
+      {/* Header with Logo */}
+      <AuthHeader
+        title="Create your account"
+        subtitle="to continue to DevOverflow"
+      />
 
-        <form onSubmit={handleEmailSignup} className="space-y-4">
-          <div>
-            <label className="text-gray-300 text-sm">Username</label>
-            <input
-              type="text"
-              className="w-full mt-1 px-4 py-3 rounded-xl bg-[#1a1a1a] border border-white/10 text-white"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
+      {/* Sign Up Form */}
+      <form onSubmit={handleEmailSignup} className="space-y-5">
+        <AuthInput
+          label="Username"
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Enter your username"
+          required
+        />
 
-          <div>
-            <label className="text-gray-300 text-sm">Email address</label>
-            <input
-              type="email"
-              className="w-full mt-1 px-4 py-3 rounded-xl bg-[#1a1a1a] border border-white/10 text-white"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
+        <AuthInput
+          label="Email address"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter your email"
+          required
+        />
 
-          <div>
-            <label className="text-gray-300 text-sm">Password</label>
-            <input
-              type="password"
-              className="w-full mt-1 px-4 py-3 rounded-xl bg-[#1a1a1a] border border-white/10 text-white"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
+        <AuthInput
+          label="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Enter your password"
+          required
+        />
 
-          {error && <p className="text-red-400 text-sm">{error}</p>}
+        {error && <p className="text-destructive text-sm">{error}</p>}
 
-          <button
-            type="submit"
-            className="w-full py-3 rounded-xl bg-orange-500 text-white font-semibold hover:bg-orange-600"
-          >
-            Continue
-          </button>
-        </form>
+        <Button
+          type="submit"
+          className="w-full h-12 rounded-lg font-semibold text-white bg-linear-to-r from-[#FF7000] to-[#E2995F] hover:opacity-90 transition-opacity cursor-pointer"
+        >
+          CONTINUE
+        </Button>
+      </form>
 
-        <p className="text-gray-400 text-sm mt-4 text-center">
-          Already have an account?{" "}
-          <a href="/sign-in" className="text-orange-400">Sign in</a>
-        </p>
+      {/* Footer Link */}
+      <p className="text-center text-sm text-dark-400 mt-6">
+        Already have an account?{" "}
+        <a href="/sign-in" className="text-primary font-medium hover:underline">
+          Sign in
+        </a>
+      </p>
 
-        {/* 🔥 OAuth */}
-        <div className="flex justify-between items-center pt-5 space-x-3">
-          <button
-            onClick={() => loginWith("github")}
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#1a1a1a] border border-white/10 text-white hover:bg-[#222]"
-          >
-            <img src="/social/github-mark.svg" className="w-5 h-5" />
-            Login with GitHub
-          </button>
+      {/* OAuth Buttons */}
+      <div className="flex gap-4 mt-6">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => loginWith("github")}
+          className="flex-1 flex items-center justify-center gap-2.5 h-12 rounded-lg bg-light-900 border-light-700 text-dark-200 font-medium text-sm hover:bg-light-800 transition-colors cursor-pointer"
+        >
+          <Image
+            src="/social/github-mark.svg"
+            alt="GitHub"
+            width={20}
+            height={20}
+            className="object-contain"
+          />
+          <span>Login with GitHub</span>
+        </Button>
 
-          <button
-            onClick={() => loginWith("google")}
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#1a1a1a] border border-white/10 text-white hover:bg-[#222]"
-          >
-            <img src="/social/google.svg" className="w-5 h-5" />
-            Login with Google
-          </button>
-        </div>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => loginWith("google")}
+          className="flex-1 flex items-center justify-center gap-2.5 h-12 rounded-lg bg-light-900 border-light-700 text-dark-200 font-medium text-sm hover:bg-light-800 transition-colors cursor-pointer"
+        >
+          <Image
+            src="/social/google.svg"
+            alt="Google"
+            width={20}
+            height={20}
+            className="object-contain"
+          />
+          <span>Login with Google</span>
+        </Button>
       </div>
-    </div>
+    </AuthCard>
   );
 }

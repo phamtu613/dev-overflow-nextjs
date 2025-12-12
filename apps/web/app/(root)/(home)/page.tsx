@@ -5,10 +5,10 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex-1">
+    <div className="px-12 pb-16 flex flex-col gap-10">
       {/* Section header */}
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-bold text-color-foreground">
+      <div className="flex items-center justify-between">
+        <h1 className="text-[30px] font-bold leading-[42px] tracking-[-0.03em] text-dark-100 dark:text-light-900">
           All Questions
         </h1>
         <Link href="/ask-question">
@@ -19,7 +19,7 @@ export default function Home() {
       </div>
 
       {/* Search bar for questions */}
-      <div className="mb-8">
+      <div>
         <div className="relative">
           <input
             type="text"

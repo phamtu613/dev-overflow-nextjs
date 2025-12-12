@@ -1,17 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Search, Sun, User } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export function Header() {
   return (
     <header className="shadow fixed top-0 right-0 h-16 bg-white dark:bg-background left-0 dark:border-b dark:border-border flex items-center justify-between px-8 z-40">
       <div className="flex items-center gap-4 flex-1 justify-between">
-        <div className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <Image src="/logo.png" alt="DevOverflow" width={30} height={30} />
           <span className="font-bold text-lg text-muted">
             Dev<span className="text-primary">Overflow</span>
           </span>
-        </div>
+        </Link>
 
         <div className="flex-1 max-w-md">
           <div className="relative w-[600px] -left-52">
@@ -25,19 +26,13 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-4">
-          <Button
-            size="icon"
-            variant="ghost"
-            className="text-muted-foreground hover:text-foreground"
-          >
+          <Button size="icon" variant="ghost" className="text-muted-foreground">
             <Sun className="w-5 h-5" />
           </Button>
-          <Button
-            size="icon"
-            variant="ghost"
-            className="text-muted-foreground hover:text-foreground"
-          >
-            <User className="w-5 h-5" />
+          <Button size="icon" variant="ghost" className="text-muted-foreground">
+            <Link href="/sign-in">
+              <User className="w-5 h-5" />
+            </Link>
           </Button>
         </div>
       </div>

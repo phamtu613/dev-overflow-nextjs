@@ -1,128 +1,159 @@
 "use client";
 
 import { useSignIn } from "@clerk/nextjs";
-import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 export default function SignInPasswordPage() {
-    const params = useSearchParams();
-    const email = params.get("email") ?? "";
+  const params = useSearchParams();
+  const email = params.get("email") ?? "";
 
-    const router = useRouter();
-    const { signIn, isLoaded } = useSignIn();
+  const router = useRouter();
+  const { signIn, isLoaded } = useSignIn();
 
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-    if (!isLoaded) return null;
+  if (!isLoaded) return null;
 
-    const handleLogin = async (e: any) => {
-        e.preventDefault();
-        try {
-            const res = await signIn.create({
-                identifier: email,
-                password,
-            });
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
-            if (res.status === "complete") {
-                router.push("/");
-            }
-        } catch (err: any) {
-            setError(err?.errors?.[0]?.message || "Login failed");
-        }
-    };
+    try {
+      const res = await signIn.create({
+        identifier: email,
+        password,
+      });
 
-    return (
-        <div className="min-h-screen w-full bg-black bg-[url('/bg_stackoverflow.svg')] bg-no-repeat bg-cover flex items-center justify-center relative">
+      if (res.status === "complete") {
+        router.push("/");
+      }
+    } catch (err: any) {
+      setError(err?.errors?.[0]?.message || "Login failed");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-            {/* Background */}
-            <div className="absolute inset-0 opacity-20">
-                <div className="h-96 w-96 bg-orange-500 rounded-full blur-[150px] absolute top-10 left-20"></div>
-                <div className="h-96 w-96 bg-blue-500 rounded-full blur-[160px] absolute bottom-10 right-20"></div>
-            </div>
-
-            {/* Card */}
-            <div className="relative w-full max-w-md bg-[#1a1d29]/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 px-8 py-10 space-y-8">
-
-                {/* Logo */}
-                <div className="flex items-center gap-3 mb-8 text-white">
-                    <img src="/logo.svg" alt="logo" className="h-10 w-10 object-cover" />
-                    <p className="text-[24.8px]">Dev<strong className="text-accent">Overflow</strong></p>
-                </div>
-
-                {/* Title */}
-                <div className="flex flex-col">
-                    <h1 className="text-xl font-semibold text-white">Sign in</h1>
-                    <p className="text-sm text-gray-400 mb-2">to continue to DevOverflow</p>
-                </div>
-
-                {error && <p className="text-red-400 text-sm">{error}</p>}
-
-                {/* FORM FIXED */}
-                <form onSubmit={handleLogin} className="space-y-4">
-                    {/* Email */}
-                    <div>
-                        <label className="text-gray-300 text-sm">Email address</label>
-                        <input
-                            type="email"
-                            value={email}
-                            readOnly
-                            className="
-                w-full px-4 py-3 bg-[#151821]
-                rounded-xl text-white opacity-70 cursor-not-allowed
-                focus:outline-none
-              "
-                        />
-                    </div>
-
-                    {/* Password */}
-                    <div>
-                        <label className="text-gray-300 text-sm">Password</label>
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="
-                w-full px-4 py-3 bg-[#151821]
-                rounded-xl text-white
-                focus:border-[#FF7000]
-                focus:border-b-2
-                focus:outline-none
-                transition-all
-              "
-                            required
-                        />
-                    </div>
-                    <p
-                        onClick={() => router.push("/forgot-password")}
-                        className="text-[#1DA1F2] text-[14px] flex items-center justify-end cursor-pointer mt-3 hover:underline"
-                    >
-                        Forgot password?
-                    </p>
-
-                    {/* Submit */}
-                    <button
-                        type="submit"
-                        className="w-full py-3 rounded-xl font-semibold shadow-lg text-white
-              bg-[linear-gradient(90deg,#FF7000,#E2985E,#E2995F)]
-              hover:opacity-90 text-[15px]"
-                    >
-                        CONTINUE
-                    </button>
-                </form>
-
-                {/* Footer */}
-                <div className="flex justify-between text-gray-500 text-sm pt-4">
-                    <div>
-                        No account? <a href="/sign-up" className="text-orange-400">Sign up</a>
-                    </div>
-                    <div className="flex gap-3">
-                        <button>Help</button>
-                        <button>Privacy</button>
-                        <button>Terms</button>
-                    </div>
-                </div>
-            </div>
+  return (
+    <div className="flex min-h-screen w-full items-center justify-center p-4">
+      {/* Card */}
+      <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white px-8 py-10 shadow-xl">
+        {/* Logo */}
+        <div className="mb-8 flex items-center gap-3">
+          <img src="/logo.svg" alt="logo" className="size-10 object-cover" />
+          <p className="text-2xl font-medium text-gray-900">
+            Dev<span className="font-bold text-primary">Overflow</span>
+          </p>
         </div>
-    );
+
+        {/* Title */}
+        <div className="mb-6 flex flex-col">
+          <h1 className="text-xl font-semibold text-gray-900">
+            Enter your password
+          </h1>
+          <p className="text-sm text-gray-500">to continue to DevOverflow</p>
+        </div>
+
+        {error && (
+          <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">
+            {error}
+          </div>
+        )}
+
+        {/* Form */}
+        <form onSubmit={handleLogin} className="space-y-4">
+          {/* Email (Read-only) */}
+          <div className="space-y-1.5">
+            <label className="text-sm font-medium text-gray-700">
+              Email address
+            </label>
+            <input
+              type="email"
+              value={email}
+              readOnly
+              className="w-full cursor-not-allowed rounded-xl border border-gray-200 bg-gray-100 px-4 py-3 text-gray-500 outline-none"
+            />
+          </div>
+
+          {/* Password */}
+          <div className="space-y-1.5">
+            <label className="text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 pr-12 text-gray-900 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 transition-colors hover:text-gray-600"
+              >
+                {showPassword ? (
+                  <EyeOff className="size-5" />
+                ) : (
+                  <Eye className="size-5" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Forgot Password Link */}
+          <div className="flex justify-end">
+            <Link
+              href="/forgot-password"
+              className="text-sm font-medium text-blue-500 transition-colors hover:text-blue-600 hover:underline"
+            >
+              Forgot password?
+            </Link>
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full rounded-xl bg-linear-to-r from-primary to-[#E2995F] py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-lg transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {isLoading ? "Signing in..." : "Continue"}
+          </button>
+        </form>
+
+        {/* Footer */}
+        <div className="mt-8 flex items-center justify-between border-t border-gray-100 pt-6 text-sm text-gray-500">
+          <div>
+            No account?{" "}
+            <Link
+              href="/sign-up"
+              className="font-medium text-primary transition-colors hover:text-primary/80"
+            >
+              Sign up
+            </Link>
+          </div>
+          <div className="flex gap-3">
+            <button className="transition-colors hover:text-gray-700">
+              Help
+            </button>
+            <button className="transition-colors hover:text-gray-700">
+              Privacy
+            </button>
+            <button className="transition-colors hover:text-gray-700">
+              Terms
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

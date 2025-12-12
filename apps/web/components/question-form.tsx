@@ -24,6 +24,8 @@ import {
   ListOrdered,
   Quote,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -44,6 +46,16 @@ const questionFormSchema = z.object({
 
 type QuestionFormValues = z.infer<typeof questionFormSchema>;
 
+interface QuestionFormProps {
+  mode?: "create" | "edit";
+  questionId?: string;
+  initialData?: {
+    title: string;
+    explanation: string;
+    tags: string;
+  };
+}
+
 const editorTools = [
   { icon: Bold, label: "Bold" },
   { icon: Italic, label: "Italic" },
@@ -56,24 +68,52 @@ const editorTools = [
   { icon: ListOrdered, label: "Ordered List" },
 ];
 
-export function QuestionForm() {
+export function QuestionForm({
+  mode = "create",
+  questionId,
+  initialData,
+}: QuestionFormProps) {
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const form = useForm<QuestionFormValues>({
     resolver: zodResolver(questionFormSchema),
-    defaultValues: {
+    defaultValues: initialData || {
       title: "",
       explanation: "",
       tags: "",
     },
   });
 
-  function onSubmit(data: QuestionFormValues) {
-    console.log(data);
+  async function onSubmit(data: QuestionFormValues) {
+    setIsSubmitting(true);
+    try {
+      // TODO: Implement API call to create/update question
+      console.log(
+        `${mode === "create" ? "Creating" : "Updating"} question:`,
+        data
+      );
+
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Redirect after success
+      if (mode === "edit" && questionId) {
+        router.push(`/profiles/ask-question/${questionId}`);
+      } else {
+        router.push("/");
+      }
+    } catch (error) {
+      console.error(`Failed to ${mode} question:`, error);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
-    <div className="bg-white dark:bg-[#11141C] transition pt-9 pr-11 pb-9 pl-11">
-      <h1 className="text-3xl font-bold text-color-foreground mb-8">
-        Ask a public question
+    <div className="bg-white pt-9 pr-11 pb-9 pl-11 transition dark:bg-[#11141C]">
+      <h1 className="text-color-foreground mb-8 text-3xl font-bold">
+        {mode === "create" ? "Ask a public question" : "Edit your question"}
       </h1>
 
       <Form {...form}>
@@ -83,16 +123,20 @@ export function QuestionForm() {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-base font-semibold text-color-foreground">
+                <FormLabel className="text-color-foreground text-base font-semibold">
                   Question Title <span className="text-primary">*</span>
                 </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Be specific and imagine you're asking a question to another person."
-                    className="bg-white dark:bg-muted border-[#DCE3F1] dark:border-border text-color-foreground placeholder:text-muted-foreground"
+                    className="text-color-foreground border-[#DCE3F1] bg-white placeholder:text-muted-foreground dark:border-border dark:bg-muted"
                     {...field}
                   />
                 </FormControl>
+                <FormDescription className="text-xs text-gray-500 dark:text-gray-400">
+                  Be specific and imagine you&apos;re asking a question to
+                  another person.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -103,20 +147,20 @@ export function QuestionForm() {
             name="explanation"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-base font-semibold text-color-foreground">
+                <FormLabel className="text-color-foreground text-base font-semibold">
                   Detailed explanation of your problem?{" "}
                   <span className="text-primary">*</span>
                 </FormLabel>
 
-                <div className="flex items-center gap-1 border border-[#DCE3F1] dark:border-border rounded-t-lg bg-light-800 dark:bg-muted px-3 py-2">
+                <div className="flex items-center gap-1 rounded-t-lg border border-[#DCE3F1] bg-gray-50 px-3 py-2 dark:border-border dark:bg-muted">
                   {editorTools.map((tool, index) => (
                     <button
                       key={index}
                       type="button"
-                      className="p-2 hover:bg-white dark:hover:bg-dark-400 rounded transition-colors"
+                      className="rounded p-2 transition-colors hover:bg-white dark:hover:bg-dark-400"
                       title={tool.label}
                     >
-                      <tool.icon className="w-4 h-4 text-muted-foreground" />
+                      <tool.icon className="size-4 text-muted-foreground" />
                     </button>
                   ))}
                 </div>
@@ -124,11 +168,11 @@ export function QuestionForm() {
                 <FormControl>
                   <Textarea
                     placeholder="Introduce the problem and expand on what you put in the title. Minimum 20 characters."
-                    className="min-h-[300px] bg-white dark:bg-muted border-[#DCE3F1] dark:border-border rounded-t-none text-color-foreground placeholder:text-muted-foreground resize-none"
+                    className="text-color-foreground min-h-[300px] resize-none rounded-t-none border-[#DCE3F1] bg-white placeholder:text-muted-foreground dark:border-border dark:bg-muted"
                     {...field}
                   />
                 </FormControl>
-                <FormDescription className="text-xs text-primary">
+                <FormDescription className="text-xs text-gray-500 dark:text-gray-400">
                   Introduce the problem and expand on what you put in the title.
                   Minimum 20 characters.
                 </FormDescription>
@@ -142,17 +186,17 @@ export function QuestionForm() {
             name="tags"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-base font-semibold text-color-foreground">
+                <FormLabel className="text-color-foreground text-base font-semibold">
                   Tags <span className="text-primary">*</span>
                 </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Add up to 5 tags to describe what your question is about. Start typing to see suggestions."
-                    className="bg-white dark:bg-muted border-[#DCE3F1] dark:border-border text-color-foreground placeholder:text-muted-foreground"
+                    className="text-color-foreground border-[#DCE3F1] bg-white placeholder:text-muted-foreground dark:border-border dark:bg-muted"
                     {...field}
                   />
                 </FormControl>
-                <FormDescription className="text-xs text-primary">
+                <FormDescription className="text-xs text-gray-500 dark:text-gray-400">
                   Add up to 5 tags to describe what your question is about.
                   Start typing to see suggestions.
                 </FormDescription>
@@ -161,12 +205,19 @@ export function QuestionForm() {
             )}
           />
 
-          <div className="flex justify-start">
+          <div className="flex justify-end">
             <Button
               type="submit"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 px-8"
+              disabled={isSubmitting}
+              className="bg-linear-to-r from-primary to-[#E2995F] px-8 text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              Ask a Question
+              {isSubmitting
+                ? mode === "create"
+                  ? "Posting..."
+                  : "Updating..."
+                : mode === "create"
+                  ? "Ask a Question"
+                  : "Update Question"}
             </Button>
           </div>
         </form>

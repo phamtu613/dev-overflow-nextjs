@@ -1,5 +1,6 @@
 import { HotItem } from "@/types";
 import Image from "next/image";
+import Link from "next/link";
 
 interface HotNetworkProps {
   items: HotItem[];
@@ -30,9 +31,12 @@ export function HotNetwork({ items }: HotNetworkProps) {
                 height={20}
               />
             </div>
-            <p className="text-sm text-color-foreground line-clamp-2 hover:text-primary transition-colors">
+            <Link
+              href={`/ask-question/${item.slug}-${item.id}`}
+              className="text-sm text-color-foreground line-clamp-2 hover:text-primary transition-colors"
+            >
               {item.title}
-            </p>
+            </Link>
           </div>
         ))}
       </div>

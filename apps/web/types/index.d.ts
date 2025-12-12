@@ -2,6 +2,7 @@ import type React from "react";
 export interface Question {
   id: string;
   title: string;
+  slug: string;
   excerpt: string;
   tags: Tag[];
   author: Author;
@@ -28,6 +29,7 @@ export interface Author {
 export interface HotItem {
   id: string;
   title: string;
+  slug: string;
   icon: React.ReactNode;
 }
 

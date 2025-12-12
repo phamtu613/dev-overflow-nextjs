@@ -1,81 +1,20 @@
 import {
   Answer,
   HotItem,
-  NavItem,
   PopularTag,
   Question,
   TopPost,
   TopTagItem,
   User,
 } from "@/types";
-import {
-  Briefcase,
-  Code2,
-  FileText,
-  HelpCircle,
-  Home,
-  LogOut,
-  Star,
-  Tag,
-  Users,
-  Wind,
-  Zap,
-} from "lucide-react";
-
-export const sidebarNav: NavItem[] = [
-  {
-    id: "1",
-    icon: <Home className="w-5 h-5" />,
-    label: "Home",
-    href: "/",
-    active: true,
-  },
-  {
-    id: "2",
-    icon: <Star className="w-5 h-5" />,
-    label: "Collections",
-    href: "/collections",
-  },
-  {
-    id: "3",
-    icon: <Briefcase className="w-5 h-5" />,
-    label: "Find Jobs",
-    href: "/jobs",
-  },
-  {
-    id: "4",
-    icon: <Tag className="w-5 h-5" />,
-    label: "Tags",
-    href: "/tags",
-  },
-  {
-    id: "5",
-    icon: <Users className="w-5 h-5" />,
-    label: "Communities",
-    href: "/communities",
-  },
-  {
-    id: "6",
-    icon: <HelpCircle className="w-5 h-5" />,
-    label: "Ask a Question",
-    href: "/ask-question",
-  },
-];
-
-export const bottomNav: NavItem[] = [
-  {
-    id: "7",
-    icon: <LogOut className="w-5 h-5" />,
-    label: "Logout",
-    href: "/logout",
-  },
-];
+import { Code2, FileText, Wind, Zap } from "lucide-react";
 
 export const questions: Question[] = [
   {
     id: "1",
     title:
       "The Lightning Component c:LWC_PizzaTracker generated invalid output for field status. Error How to solve this",
+    slug: "the-lightning-component-c-lwc_pizzatracker-generated-invalid-output-for-field-status-error-how-to-solve-this",
     excerpt:
       "I am getting an error with the Lightning Component when trying to generate output...",
     tags: [
@@ -87,7 +26,7 @@ export const questions: Question[] = [
     author: {
       id: "auth1",
       name: "Satheesh",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Satheesh",
+      avatar: "/avatar.png",
     },
     timestamp: "2 mins ago",
     votes: 1200,
@@ -97,6 +36,7 @@ export const questions: Question[] = [
   {
     id: "2",
     title: "How to implement lazy loading in React for better performance",
+    slug: "how-to-implement-lazy-loading-in-react-for-better-performance",
     excerpt:
       "Looking for best practices on implementing lazy loading in React components...",
     tags: [
@@ -107,7 +47,7 @@ export const questions: Question[] = [
     author: {
       id: "auth2",
       name: "Satheesh",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+      avatar: "/avatar.png",
     },
     timestamp: "5 mins ago",
     votes: 850,
@@ -117,6 +57,7 @@ export const questions: Question[] = [
   {
     id: "3",
     title: "Understanding useCallback vs useMemo in React Hooks",
+    slug: "understanding-usecallback-vs-usememo-in-react-hooks",
     excerpt:
       "Clarifying the differences between these two optimization hooks...",
     tags: [
@@ -127,7 +68,7 @@ export const questions: Question[] = [
     author: {
       id: "auth3",
       name: "Satheesh",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
+      avatar: "/avatar.png",
     },
     timestamp: "10 mins ago",
     votes: 2100,
@@ -141,26 +82,31 @@ export const hotNetworkItems: HotItem[] = [
     id: "1",
     title:
       "Would it be appropriate to point out an error in another paper during a referee report?",
+    slug: "would-it-be-appropriate-to-point-out-an-error-in-another-paper-during-a-referee-report",
     icon: <FileText className="w-4 h-4 text-primary" />,
   },
   {
     id: "2",
     title: "How can an airconditioning machine exist?",
+    slug: "how-can-an-airconditioning-machine-exist",
     icon: <Wind className="w-4 h-4 text-primary" />,
   },
   {
     id: "3",
     title: "Interrogated every time crossing UK Border as citizen",
+    slug: "interrogated-every-time-crossing-uk-border-as-citizen",
     icon: <FileText className="w-4 h-4 text-primary" />,
   },
   {
     id: "4",
     title: "Low digit addition generator",
+    slug: "low-digit-addition-generator",
     icon: <Code2 className="w-4 h-4 text-primary" />,
   },
   {
     id: "5",
     title: "What is an example of 3 numbers that do not make up a vector?",
+    slug: "what-is-an-example-of-3-numbers-that-do-not-make-up-a-vector",
     icon: <Zap className="w-4 h-4 text-primary" />,
   },
 ];
@@ -178,6 +124,7 @@ export const detailedQuestion: Question & { answers: Answer[] } = {
   id: "1",
   title:
     "How to refresh all the data inside the Datatable and move the data into original place after closing the modal popup close button",
+  slug: "how-to-refresh-all-the-data-inside-the-datatable-and-move-the-data-into-original-place-after-closing-the-modal-popup-close-button",
   excerpt:
     "I am getting an error with the Lightning Component when trying to generate output...",
   tags: [

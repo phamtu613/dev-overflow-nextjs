@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Question } from "@/types";
 import { Eye, MessageCircle, ThumbsUp } from "lucide-react";
+import Link from "next/link";
 
 interface QuestionCardProps {
   question: Question;
@@ -11,9 +12,12 @@ export function QuestionCard({ question }: QuestionCardProps) {
     <article className="border p-9 rounded-xl border-[#C8CBD954] dark:bg-[#11141C] dark:text-card-foreground dark:border-b-background text-color-foreground bg-color-background dark:border-border transition dark:shadow-[0_0_40px_rgba(0,0,0,0.35)] hover:shadow-md">
       <div className="flex items-start justify-between mb-4">
         <div>
-          <h3 className="text-lg font-semibold text-color-foreground mb-2 line-clamp-2 hover:text-primary cursor-pointer transition-colors">
+          <Link
+            href={`/ask-question/${question.slug}-${question.id}`}
+            className="text-lg font-semibold text-color-foreground mb-2 line-clamp-2 hover:text-primary cursor-pointer transition-colors"
+          >
             {question.title}
-          </h3>
+          </Link>
           <p className="text-sm text-muted-foreground line-clamp-2">
             {question.excerpt}
           </p>
