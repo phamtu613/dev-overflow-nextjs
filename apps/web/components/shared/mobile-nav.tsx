@@ -1,16 +1,23 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@repo/ui/button";
 import {
   Sheet,
   SheetClose,
   SheetContent,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { sidebarLinks } from "@/constants";
+} from "@repo/ui/sheet";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+const sidebarLinks = [
+  { imgURL: "/assets/icons/home.svg", route: "/", label: "Home" },
+  { imgURL: "/assets/icons/users.svg", route: "/users", label: "Community" },
+  { imgURL: "/assets/icons/star.svg", route: "/collections", label: "Collections" },
+  { imgURL: "/assets/icons/suitcase.svg", route: "/find-jobs", label: "Find Jobs" },
+  { imgURL: "/assets/icons/tag.svg", route: "/tags", label: "Tags" },
+];
 
 const NavContent = () => {
   const pathname = usePathname();

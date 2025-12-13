@@ -1,8 +1,8 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
+import { Input } from "@repo/ui/input";
+import { Label } from "@repo/ui/label";
+import { cn } from "@repo/utils/cn";
 import * as React from "react";
 
 interface AuthInputProps extends React.InputHTMLAttributes<HTMLInputElement> {

@@ -1,6 +1,6 @@
 "use client";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/tabs";
 import { FormInput, Palette, Pointer, SquareStack, Type } from "lucide-react";
 import { ButtonSection } from "./sections/button-section";
 import { CardSection } from "./sections/card-section";

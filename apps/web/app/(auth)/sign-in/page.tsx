@@ -2,7 +2,7 @@
 
 import { AuthCard, AuthHeader } from "@/components/auth/auth-card";
 import { AuthInput } from "@/components/auth/auth-input";
-import { Button } from "@/components/ui/button";
+import { Button } from "@repo/ui/button";
 import { useAuth, useSignIn } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";

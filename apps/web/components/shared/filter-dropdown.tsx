@@ -4,8 +4,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { cn } from "@/lib/utils";
+} from "@repo/ui/select";
+import { cn } from "@repo/utils/cn";
 import { ChevronDown, Filter } from "lucide-react";
 
 interface FilterDropdownProps<T extends string> {

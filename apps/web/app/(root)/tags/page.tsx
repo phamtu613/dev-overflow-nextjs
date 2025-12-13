@@ -1,8 +1,8 @@
 "use client";
 
 import { FilterDropdown } from "@/components/shared/filter-dropdown";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { Card } from "@repo/ui/card";
+import { Input } from "@repo/ui/input";
 import { popularTags } from "@/lib/mock-data";
 import { Search } from "lucide-react";
 import Link from "next/link";

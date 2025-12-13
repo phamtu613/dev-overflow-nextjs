@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@repo/ui/button";
 import { Answer } from "@/types";
 import { ChevronDown } from "lucide-react";
 import { AnswerCard } from "./answer-card";

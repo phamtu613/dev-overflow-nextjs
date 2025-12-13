@@ -1,8 +1,8 @@
 "use client";
 
 import { FilterDropdown } from "@/components/shared/filter-dropdown";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { Card } from "@repo/ui/card";
+import { Input } from "@repo/ui/input";
 import { ArrowUpRight, Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -71,14 +71,14 @@ export default function BlogsPage() {
   return (
     <div className="px-12 pb-16">
       {/* Header */}
-      <h1 className="mb-10 text-[30px] font-bold leading-[42px] tracking-[-0.03em] text-dark-100 dark:text-light-900">
+      <h1 className="mb-10 text-[30px] font-bold leading-10.5 tracking-[-0.03em] text-dark-100 dark:text-light-900">
         Overflow Blog
       </h1>
 
       {/* Search and Filter */}
       <div className="mb-16 flex flex-col gap-7 sm:flex-row">
         {/* Search */}
-        <div className="relative flex-1 max-w-[609px]">
+        <div className="relative flex-1 max-w-152.25">
           <Search className="absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 text-light-400" />
           <Input
             type="text"
@@ -102,13 +102,13 @@ export default function BlogsPage() {
       </div>
 
       {/* Blog Content */}
-      <div className="flex max-w-[1070px] flex-col gap-12">
+      <div className="flex flex-col gap-12">
         {/* Featured Blog Post */}
         {featuredPost && (
           <Link href={`/blogs/${featuredPost.id}`}>
             <Card className="group flex cursor-pointer flex-col gap-8 overflow-hidden border-0 bg-transparent p-0 shadow-none transition-opacity hover:opacity-90 sm:flex-row">
               {/* Image */}
-              <div className="relative h-80 w-full shrink-0 overflow-hidden rounded-[20px] bg-light-800 dark:bg-dark-400 sm:h-80 sm:w-[560px]">
+              <div className="relative h-80 w-full shrink-0 overflow-hidden rounded-[20px] bg-light-800 dark:bg-dark-400 sm:h-80 sm:w-140">
                 {featuredPost.image ? (
                   <Image
                     src={featuredPost.image}

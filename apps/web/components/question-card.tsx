@@ -1,6 +1,6 @@
-import { Badge } from "@/components/ui/badge";
+import { QuestionMetrics } from "@/components/shared/question-metrics";
 import { Question } from "@/types";
-import { Eye, MessageCircle, ThumbsUp } from "lucide-react";
+import { Badge } from "@repo/ui/badge";
 import Link from "next/link";
 
 interface QuestionCardProps {
@@ -29,7 +29,7 @@ export function QuestionCard({ question }: QuestionCardProps) {
           <Badge
             key={tag.id}
             variant="secondary"
-            className="bg-light-800 text-color-foreground hover:bg-muted/80 cursor-pointer"
+            className="bg-light-800 text-color-foreground cursor-pointer p-2 hover:bg-light-700 transition-colors"
           >
             {tag.name}
           </Badge>
@@ -51,23 +51,12 @@ export function QuestionCard({ question }: QuestionCardProps) {
           </div>
         </div>
 
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-1 text-xs hover:text-foreground cursor-pointer transition-colors">
-            <ThumbsUp className="size-4 text-[#1DA1F2]" />
-            <span>{question.votes.toLocaleString()}</span>
-            <span className="text-xs text-color-muted">Votes</span>
-          </div>
-          <div className="flex items-center gap-1 text-xs hover:text-foreground cursor-pointer transition-colors">
-            <MessageCircle className="size-4 text-[#1DA1F2]" />
-            <span>{question.answer.toLocaleString()}</span>
-            <span className="text-xs text-color-muted">Answers</span>
-          </div>
-          <div className="flex items-center gap-1 text-xs hover:text-foreground cursor-pointer transition-colors">
-            <Eye className="size-4 text-[#1DA1F2]" />
-            <span>{question.views.toLocaleString()}</span>
-            <span className="text-xs text-color-muted">Views</span>
-          </div>
-        </div>
+        <QuestionMetrics
+          votes={question.votes}
+          answers={question.answer}
+          views={question.views}
+          variant="default"
+        />
       </div>
     </article>
   );

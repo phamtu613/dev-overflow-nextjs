@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@repo/ui/button";
 import {
   Form,
   FormControl,
@@ -9,9 +9,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+} from "@repo/ui/form";
+import { Input } from "@repo/ui/input";
+import { Textarea } from "@repo/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Bold,

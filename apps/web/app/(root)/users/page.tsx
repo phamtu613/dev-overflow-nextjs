@@ -1,7 +1,7 @@
 "use client";
 
 import { FilterDropdown } from "@/components/shared/filter-dropdown";
-import { Input } from "@/components/ui/input";
+import { Input } from "@repo/ui/input";
 import { UserCard } from "@/components/user-card";
 import { BaseUser } from "@/types/user";
 import { Search } from "lucide-react";

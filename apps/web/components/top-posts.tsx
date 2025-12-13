@@ -8,6 +8,7 @@ interface TopPostsProps {
 export function TopPosts({ posts }: TopPostsProps) {
   const transformedPosts = posts.map((post) => ({
     ...post,
+    slug: post.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
     answer: post.answers,
     excerpt: "",
   }));

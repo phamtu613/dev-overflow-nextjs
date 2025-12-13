@@ -1,8 +1,8 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@repo/ui/badge";
+import { QuestionMetrics } from "@/components/shared/question-metrics";
 import { Question } from "@/types";
-import { Eye, MessageCircle, ThumbsUp } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -68,28 +68,12 @@ export function SavedQuestionCard({ question }: SavedQuestionCardProps) {
           </div>
 
           {/* Actions */}
-          <div className="flex items-center gap-2.5">
-            <div className="flex items-center gap-0.5 cursor-pointer transition-opacity hover:opacity-80">
-              <ThumbsUp className="w-4 h-4 text-light-900 dark:text-light-800" />
-              <span className="text-xs leading-[15.6px] text-dark-400 dark:text-light-700">
-                {question.votes.toLocaleString()} Votes
-              </span>
-            </div>
-
-            <div className="flex items-center gap-0.5 cursor-pointer transition-opacity hover:opacity-80">
-              <MessageCircle className="w-4 h-4 text-light-900 dark:text-light-800" />
-              <span className="text-xs leading-[15.6px] text-dark-400 dark:text-light-700">
-                {question.answer.toLocaleString()} Answers
-              </span>
-            </div>
-
-            <div className="flex items-center gap-0.5 cursor-pointer transition-opacity hover:opacity-80">
-              <Eye className="w-4 h-4 text-light-900 dark:text-light-800" />
-              <span className="text-xs leading-[15.6px] text-dark-400 dark:text-light-700">
-                {question.views.toLocaleString()} Views
-              </span>
-            </div>
-          </div>
+          <QuestionMetrics
+            votes={question.votes}
+            answers={question.answer}
+            views={question.views}
+            variant="compact"
+          />
         </div>
       </div>
     </article>

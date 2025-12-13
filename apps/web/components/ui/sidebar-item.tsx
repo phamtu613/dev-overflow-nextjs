@@ -1,9 +1,9 @@
-import * as React from "react";
-import Link from "next/link";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
+import Link from "next/link";
+import * as React from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@repo/utils/cn";
 
 const sidebarItemVariants = cva(
   "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
@@ -17,12 +17,11 @@ const sidebarItemVariants = cva(
     defaultVariants: {
       active: false,
     },
-  },
+  }
 );
 
 export interface SidebarItemProps
-  extends
-    React.AnchorHTMLAttributes<HTMLAnchorElement>,
+  extends React.AnchorHTMLAttributes<HTMLAnchorElement>,
     VariantProps<typeof sidebarItemVariants> {
   icon?: React.ReactNode;
   label: string;
@@ -45,7 +44,7 @@ const SidebarItem = React.forwardRef<HTMLAnchorElement, SidebarItemProps>(
         <span>{label}</span>
       </Comp>
     );
-  },
+  }
 );
 
 SidebarItem.displayName = "SidebarItem";

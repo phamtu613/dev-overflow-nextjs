@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@repo/ui/button";
 import { Search, Sun, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
