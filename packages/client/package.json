@@ -1,0 +1,13 @@
+{
+    "name": "@repo/client",
+    "version": "0.0.0",
+    "private": true,
+    "exports": {
+        ".": "./api-client.ts"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@repo/typescript-config": "workspace:*",
+        "typescript": "^5.7.2"
+    }
+}

@@ -8,7 +8,24 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ],
+      "@repo/ui": [
+        "../../packages/ui"
+      ],
+      "@repo/utils": [
+        "../../packages/utils"
+      ],
+      "@repo/hooks": [
+        "../../packages/hooks"
+      ],
+      "@repo/schemas": [
+        "../../packages/schemas"
+      ],
+      "@repo/client": [
+        "../../packages/client"
+      ]
     }
   },
   "include": [
