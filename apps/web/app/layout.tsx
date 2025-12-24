@@ -1,4 +1,3 @@
-import { Toaster } from "@repo/ui/toaster";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
@@ -28,10 +27,23 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" className={`${inter.variable} ${geistMono.variable}`}>
+      <html
+        lang="en"
+        className={`${inter.variable} ${geistMono.variable}`}
+        suppressHydrationWarning
+      >
         <body className="antialiased">
-          {children}
-          <Toaster />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <QueryProvider>
+              {children}
+            </QueryProvider>
+            <Toaster />
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

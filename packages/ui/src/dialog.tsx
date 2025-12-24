@@ -2,6 +2,7 @@
 
 import { cn } from "./lib/utils";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { cn } from "@repo/utils/cn";
 import { Cross } from "lucide-react";
 import * as React from "react";
 

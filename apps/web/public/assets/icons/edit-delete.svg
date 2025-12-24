@@ -1,0 +1,19 @@
+<svg width="44" height="18" viewBox="0 0 44 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Edit icon -->
+  <path d="M1.5 17H6L17.5 5.5L14 2L2.5 13.5V17H1.5Z" stroke="url(#gradient)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M14 2L17.5 5.5" stroke="url(#gradient)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Delete icon -->
+  <path d="M26 4H42" stroke="#FF7000" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M28 4V2C28 1.44772 28.4477 1 29 1H39C39.5523 1 40 1.44772 40 2V4" stroke="#FF7000" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M41 4V16C41 16.5523 40.5523 17 40 17H28C27.4477 17 27 16.5523 27 16V4" stroke="#FF7000" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M31 8V13" stroke="#FF7000" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M37 8V13" stroke="#FF7000" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF7000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E2995F;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>
