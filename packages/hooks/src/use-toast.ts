@@ -3,8 +3,15 @@
 // Inspired by react-hot-toast library
 import * as React from "react";
 
+<<<<<<<< HEAD:packages/ui/src/use-toast.ts
+import type {
+  ToastActionElement,
+  ToastProps,
+} from "./toast.js"
+========
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1000000;
+>>>>>>>> origin/main:packages/hooks/src/use-toast.ts
 
 // Base toast types that can be extended by the consuming app
 export interface ToastProps {
@@ -39,6 +46,23 @@ type ActionType = typeof actionTypes;
 
 type Action =
   | {
+<<<<<<<< HEAD:packages/ui/src/use-toast.ts
+    type: ActionType["ADD_TOAST"]
+    toast: ToasterToast
+  }
+  | {
+    type: ActionType["UPDATE_TOAST"]
+    toast: Partial<ToasterToast>
+  }
+  | {
+    type: ActionType["DISMISS_TOAST"]
+    toastId?: ToasterToast["id"]
+  }
+  | {
+    type: ActionType["REMOVE_TOAST"]
+    toastId?: ToasterToast["id"]
+  }
+========
       type: ActionType["ADD_TOAST"];
       toast: ToasterToast;
     }
@@ -54,6 +78,7 @@ type Action =
       type: ActionType["REMOVE_TOAST"];
       toastId?: ToasterToast["id"];
     };
+>>>>>>>> origin/main:packages/hooks/src/use-toast.ts
 
 interface State {
   toasts: ToasterToast[];
@@ -111,10 +136,17 @@ export const reducer = (state: State, action: Action): State => {
         toasts: state.toasts.map((t) =>
           t.id === toastId || toastId === undefined
             ? {
+<<<<<<<< HEAD:packages/ui/src/use-toast.ts
+              ...t,
+              open: false,
+            }
+            : t
+========
                 ...t,
                 open: false,
               }
             : t,
+>>>>>>>> origin/main:packages/hooks/src/use-toast.ts
         ),
       };
     }

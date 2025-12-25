@@ -1,11 +1,12 @@
-import { Toaster } from "@repo/ui/toaster";
-import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
-import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
-import { QueryProvider } from "@/lib/react-query/QueryProvider";
+import { ClerkProvider } from "@clerk/nextjs";
+import { ThemeProvider } from "next-themes";
+
+import { QueryProvider } from "@repo/client/react-query/QueryProvider";
+import { Toaster } from "@repo/ui";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -42,9 +43,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-             <QueryProvider>
-                 {children}
-             </QueryProvider>
+            <QueryProvider>
+              {children}
+            </QueryProvider>
             <Toaster />
           </ThemeProvider>
         </body>

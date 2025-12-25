@@ -1,6 +1,7 @@
 @import "tailwindcss";
 /* Import shared theme from monorepo package */
 @import "@repo/tailwind-config/theme";
+@source "../../../packages/ui/src";
 
 .clerk-ribbon {
   writing-mode: vertical-rl;

@@ -38,10 +38,16 @@ export default function VerifyEmail() {
     setError("");
 
     try {
-      await signIn.prepareFirstFactor({
-        strategy: "email_code",
-        emailAddressId: signIn.identifier!,
-      });
+      const emailFactor = signIn?.supportedFirstFactors?.find(
+        (factor) => factor.strategy === "email_code"
+      ) as any;
+
+      if (emailFactor) {
+        await signIn.prepareFirstFactor({
+          strategy: "email_code",
+          emailAddressId: emailFactor.emailAddressId,
+        });
+      }
     } catch (err: any) {
       setError("Could not resend code");
     }
