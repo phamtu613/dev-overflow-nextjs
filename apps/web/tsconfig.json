@@ -13,19 +13,34 @@
         "./*"
       ],
       "@repo/ui": [
-        "../../packages/ui"
+        "../../packages/ui/src/index.ts"
+      ],
+      "@repo/ui/*": [
+        "../../packages/ui/src/*"
       ],
       "@repo/utils": [
-        "../../packages/utils"
+        "../../packages/utils/src/index.ts"
+      ],
+      "@repo/utils/*": [
+        "../../packages/utils/src/*"
       ],
       "@repo/hooks": [
-        "../../packages/hooks"
+        "../../packages/hooks/src/index.ts"
+      ],
+      "@repo/hooks/*": [
+        "../../packages/hooks/src/*"
       ],
       "@repo/schemas": [
-        "../../packages/schemas"
+        "../../packages/schemas/src/index.ts"
+      ],
+      "@repo/schemas/*": [
+        "../../packages/schemas/src/*"
       ],
       "@repo/client": [
-        "../../packages/client"
+        "../../packages/client/api-client.ts"
+      ],
+      "@repo/client/*": [
+        "../../packages/client/*"
       ]
     }
   },

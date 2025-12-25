@@ -3,6 +3,10 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { ThemeProvider } from "next-themes";
+
+import { QueryProvider } from "@repo/client/react-query/QueryProvider";
+import { Toaster } from "@repo/ui";
 
 const inter = Inter({
   subsets: ["latin"],

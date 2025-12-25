@@ -1,5 +1,5 @@
 import { QuestionList } from "@/components/question-list";
-import { Button } from "@/components/ui/button";
+import { Button } from "@repo/ui/button";
 import { questions } from "@/lib/mock-data";
 import Link from "next/link";
 

@@ -3,11 +3,16 @@
     "version": "0.0.0",
     "private": true,
     "exports": {
-        ".": "./api-client.ts"
+        ".": "./api-client.ts",
+        "./react-query/*": "./react-query/*.tsx"
     },
-    "dependencies": {},
+    "dependencies": {
+        "react": "^19.2.0",
+        "@tanstack/react-query": "^5.66.0"
+    },
     "devDependencies": {
         "@repo/typescript-config": "workspace:*",
+        "@types/react": "19.2.2",
         "typescript": "^5.7.2"
     }
 }

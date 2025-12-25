@@ -66,7 +66,7 @@ export {
 } from "./form";
 
 // Input
-export { Input, inputVariants, type InputProps } from "./input";
+export { Input } from "./input";
 
 // Label
 export { Label } from "./label";
@@ -146,7 +146,7 @@ export { Switch } from "./switch";
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
 
 // Textarea
-export { Textarea, textareaVariants, type TextareaProps } from "./textarea";
+export { Textarea } from "./textarea";
 
 // Toast
 export {
