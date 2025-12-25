@@ -1,6 +1,6 @@
 import { QuestionList } from "@/components/question-list";
-import { Button } from "@repo/ui/button";
 import { questions } from "@/lib/mock-data";
+import { Button } from "@repo/ui/button";
 import Link from "next/link";
 
 export default function Home() {
