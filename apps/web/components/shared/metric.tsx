@@ -1,9 +1,8 @@
-import { LucideIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 interface MetricProps {
-  icon?: LucideIcon;
+  icon?: any;
   imgUrl?: string;
   alt: string;
   value: string | number;

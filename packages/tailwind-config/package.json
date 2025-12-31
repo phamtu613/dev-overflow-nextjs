@@ -4,7 +4,8 @@
     "private": true,
     "license": "MIT",
     "exports": {
-        "./config": "./config.js"
+        "./config": "./config.js",
+        "./postcss": "./postcss.js"
     },
     "files": [
         "*.js"

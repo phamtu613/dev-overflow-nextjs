@@ -1,12 +1,11 @@
 "use client";
 
 import { Button } from "@repo/ui/button";
-import { Answer } from "@/types";
 import { ChevronDown } from "lucide-react";
 import { AnswerCard } from "./answer-card";
 
 interface AnswersSectionProps {
-  answers: Answer[];
+  answers: any[];
   totalAnswers: number;
 }
 

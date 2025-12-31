@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchCommunityUsers } from "@/lib/mock-data";
-import { SortOption } from "@/types/community";
+import type { SortOption } from "@/types/community";
 
 export function useCommunityUsers(
   search: string,

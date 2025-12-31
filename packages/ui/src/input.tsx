@@ -31,18 +31,20 @@ const inputVariants = cva(
 
 export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">,
-    VariantProps<typeof inputVariants> {
+  VariantProps<typeof inputVariants> {
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   leftElement?: React.ReactNode;
   rightElement?: React.ReactNode;
   error?: boolean;
   asChild?: boolean;
+  label?: string;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
+      label,
       className,
       type,
       variant,
@@ -63,14 +65,17 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     // If no icons or elements, render simple input
     if (!leftIcon && !rightIcon && !leftElement && !rightElement) {
       return (
-        <Comp
-          type={type}
-          className={cn(
-            inputVariants({ variant: finalVariant, inputSize, className })
-          )}
-          ref={ref}
-          {...props}
-        />
+        <>
+          <label htmlFor={label}>{label}</label>
+          <Comp
+            type={type}
+            className={cn(
+              inputVariants({ variant: finalVariant, inputSize, className })
+            )}
+            ref={ref}
+            {...props}
+          />
+        </>
       );
     }
 

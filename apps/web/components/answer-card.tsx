@@ -1,14 +1,10 @@
 "use client";
 
 import { Button } from "@repo/ui/button";
-import { Answer } from "@/types";
 import { CheckCircle2 } from "lucide-react";
 
-interface AnswerCardProps {
-  answer: Answer;
-}
 
-export function AnswerCard({ answer }: AnswerCardProps) {
+export function AnswerCard({ answer }: any) {
   return (
     <article className="px-5 pb-9 bg-white dark:bg-[#11141C] transition dark:shadow-[0_0_40px_rgba(0,0,0,0.35)]">
       <div className="flex items-start justify-between">

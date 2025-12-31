@@ -1,9 +1,8 @@
-import { HotItem } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
 interface HotNetworkProps {
-  items: HotItem[];
+  items: any[];
 }
 
 export function HotNetwork({ items }: HotNetworkProps) {

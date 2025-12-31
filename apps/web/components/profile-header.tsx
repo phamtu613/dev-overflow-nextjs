@@ -1,10 +1,9 @@
-import { User } from "@/types";
 import { Calendar, LinkIcon, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 interface ProfileHeaderProps {
-  user: User;
+  user: any;
 }
 
 export function ProfileHeader({ user }: ProfileHeaderProps) {

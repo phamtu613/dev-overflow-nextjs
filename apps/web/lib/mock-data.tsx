@@ -1,4 +1,4 @@
-import {
+import type {
   Answer,
   HotItem,
   PopularTag,
@@ -7,7 +7,7 @@ import {
   TopTagItem,
   User,
 } from "@/types";
-import {
+import type {
   CommunityUserCard,
   GetCommunityUsersResponse,
   SortOption,

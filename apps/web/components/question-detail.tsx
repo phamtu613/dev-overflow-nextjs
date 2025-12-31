@@ -1,11 +1,10 @@
 "use client";
 
 import { Badge } from "@repo/ui/badge";
-import { Answer, Question } from "@/types";
 import { Eye, MessageCircle, ThumbsUp } from "lucide-react";
 
 interface QuestionDetailProps {
-  question: Question & { answers: Answer[] };
+  question: any;
 }
 
 export function QuestionDetail({ question }: QuestionDetailProps) {
@@ -78,7 +77,7 @@ export function QuestionDetail({ question }: QuestionDetailProps) {
         </div>
 
         <div className="flex flex-wrap gap-2 mb-6">
-          {question.tags.map((tag) => (
+          {question.tags.map((tag: any) => (
             <Badge
               key={tag.id}
               variant="secondary"

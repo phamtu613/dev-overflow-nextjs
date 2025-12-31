@@ -1,4 +1,4 @@
-import { BaseUser } from "./user";
+import type { BaseUser } from "./user";
 
 export type SortOption = "Highest Reputation" | "Popular" | "Moderators";
 
