@@ -11,6 +11,6 @@ export function useCommunityUsers(
     queryKey: ["community-users", search, sortBy, page],
     queryFn: () => fetchCommunityUsers(search, sortBy, page, 16),
     staleTime: 5 * 60 * 1000,
-    placeholderData: (prev: any) => prev,
+    placeholderData: (prev) => prev,
   });
 }

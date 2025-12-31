@@ -462,7 +462,7 @@ function sortAndUpdateUsers(
         (a, b) => getUserRank(a, sortBy) - getUserRank(b, sortBy)
       );
       break;
-    case "Moderators":
+    case "Moderators": {
       const moderators = users.filter(
         (u) => u.rank["Moderators"] !== undefined
       );
@@ -470,6 +470,7 @@ function sortAndUpdateUsers(
         (a, b) => getUserRank(a, sortBy) - getUserRank(b, sortBy)
       );
       break;
+    }
     default:
       sorted = [...users];
   }

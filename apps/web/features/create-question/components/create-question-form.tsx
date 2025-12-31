@@ -84,7 +84,7 @@ const TagsInput = ({
         <Controller
             control={control}
             name={name}
-            render={({ field: { value, onChange, ...field }, fieldState: { error } }) => (
+            render={({ field: { value, onChange, ...field } }) => (
                 <div className="flex flex-col gap-2">
                     {/*
              Simplified UI for tags: treating it as a comma-separated string for input,

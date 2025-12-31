@@ -11,7 +11,7 @@ export const QUERY_KEYS = {
   USERS_LIST: (sort?: string) => ["users", { sort }],
   USER_PROFILE: (id: string) => ["user", id],
 
-  JOBS_LIST: (filter?: any) => ["jobs", { filter }],
+  JOBS_LIST: (filter?: Record<string, unknown>) => ["jobs", { filter }],
 
   TAGS_LIST: ["tags"],
   TAG_DETAIL: (id: string) => ["tag", id],
