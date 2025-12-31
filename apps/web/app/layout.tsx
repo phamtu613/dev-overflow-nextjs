@@ -6,9 +6,9 @@ import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
-import localFont from "next/font/local";
 import "./globals.css";
 import { QueryProvider } from "@/lib/react-query/query-provider";
+import localFont from "next/font/local";
 
 const inter = Inter({
   subsets: ["latin"],
