@@ -99,7 +99,7 @@ AppSidebar.NavItems = function AppSidebarNavItems({
     const baseClean = base === "/" ? "" : base.replace(/\/$/, "");
     const childClean = child.replace(/^\//, "");
     const joined = [baseClean, childClean].filter(Boolean).join("/");
-    return `/${joined}` || "/";
+    return joined ? `/${joined}` : "/";
   }, []);
 
   return (

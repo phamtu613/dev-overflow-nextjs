@@ -4,7 +4,6 @@ import unicorn from "eslint-plugin-unicorn";
 
 export default [
     js.configs.recommended,
-
     ...tseslint.configs.recommended,
 
     // Global ignores
@@ -24,7 +23,14 @@ export default [
             unicorn,
         },
         rules: {
-            /* ================= CODE ================= */
+            // Enforce kebab-case for all files (Next.js App Router convention)
+            "unicorn/filename-case": [
+                "error",
+                {
+                    case: "kebabCase",
+                },
+            ],
+
             "@typescript-eslint/naming-convention": [
                 "error",
                 // Default for variables - camelCase
@@ -53,15 +59,6 @@ export default [
                 {
                     selector: "typeLike",
                     format: ["PascalCase"],
-                },
-            ],
-
-            /* ================= FILE NAME ================= */
-            // Enforce kebab-case for all files (Next.js App Router convention)
-            "unicorn/filename-case": [
-                "error",
-                {
-                    case: "kebabCase",
                 },
             ],
         },
