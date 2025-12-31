@@ -1,3 +1,6 @@
+// Clerk requires runtime keys - disable static generation for all pages
+export const dynamic = "force-dynamic";
+
 import { Toaster } from "@repo/ui/toaster";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
@@ -42,9 +45,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-             <QueryProvider>
-                 {children}
-             </QueryProvider>
+            <QueryProvider>
+              {children}
+            </QueryProvider>
             <Toaster />
           </ThemeProvider>
         </body>

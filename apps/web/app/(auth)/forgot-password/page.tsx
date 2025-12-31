@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useClerk } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 export default function ForgotPasswordPage() {
   const router = useRouter();
