@@ -1,9 +1,6 @@
 
 import type { ReactNode } from "react";
 
-// Force dynamic rendering for auth pages since they depend on Clerk
-export const dynamic = "force-dynamic";
-
 export default function AuthLayout({
     children,
 }: {

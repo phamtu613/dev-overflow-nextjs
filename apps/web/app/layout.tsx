@@ -1,9 +1,7 @@
-import { ClerkProvider } from "@clerk/nextjs";
 import type { ReactNode } from "react";
 import "./globals.css";
+import { ClerkAxiosBridge } from "./infrastructure/auth/clerk-axios-bridge";
 
-// Force dynamic rendering since ClerkProvider requires publishableKey at runtime
-export const dynamic = "force-dynamic";
 
 export default function RootLayout({
   children,
@@ -14,9 +12,8 @@ export default function RootLayout({
     <div className="flex min-h-screen items-center justify-center bg-black">
       <html lang="en">
         <body>
-          <ClerkProvider>
-            {children}
-          </ClerkProvider>
+          <ClerkAxiosBridge />
+          {children}
         </body>
       </html>
     </div>
