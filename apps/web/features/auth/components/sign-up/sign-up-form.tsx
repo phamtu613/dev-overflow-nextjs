@@ -6,11 +6,11 @@ import { Input } from "@repo/ui/input";
 import { Label } from "@repo/ui/label";
 import { useState, useCallback, type FormEvent, type ChangeEvent } from "react";
 
-interface SignInFormProps {
+interface SignUpFormProps {
     onSubmit: (email: string) => Promise<void>;
 }
 
-export function SignInForm({ onSubmit }: SignInFormProps) {
+export function SignUpForm({ onSubmit }: SignUpFormProps) {
     const [email, setEmail] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");

@@ -1,8 +1,7 @@
 import type { ReactNode } from "react";
 import "./globals.css";
-import { ClerkAxiosBridge } from "./infrastructure/auth/clerk-axios-bridge";
 import { ClerkProvider } from "@clerk/nextjs";
-
+import { ClerkAxiosBridge } from "./infrastructure/auth/clerk-axios-bridge";
 
 export default function RootLayout({
   children,
@@ -10,15 +9,15 @@ export default function RootLayout({
   children: ReactNode;
 }) {
   return (
-    <ClerkProvider>
-      <div className="flex min-h-screen items-center justify-center bg-white">
-        <html lang="en">
-          <body>
-            <ClerkAxiosBridge />
+    <html lang="en">
+      <body className="min-h-screen bg-black bg-[url('/bg-dark.png')] bg-cover bg-no-repeat">
+        <ClerkProvider>
+          <ClerkAxiosBridge />
+          <div className="flex min-h-screen items-center justify-center">
             {children}
-          </body>
-        </html>
-      </div>
-    </ClerkProvider>
+          </div>
+        </ClerkProvider>
+      </body>
+    </html>
   );
 }

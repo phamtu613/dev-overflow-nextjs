@@ -4,17 +4,17 @@ import { useCallback, useState } from "react";
 import Image from "next/image";
 import type { OAuthProvider } from "@/features/auth/constants/oauth";
 
-interface SignInSocialProps {
+interface SignUpSocialProps {
     onOAuth: (provider: OAuthProvider) => Promise<void>;
 }
 
 const SOCIAL_PROVIDERS = [
-    { name: "google" as const, icon: "/social/google.svg", label: "Sign in with Google" },
-    { name: "facebook" as const, icon: "/social/facebook.svg", label: "Sign in with Facebook" },
-    { name: "twitter" as const, icon: "/social/twitter.svg", label: "Sign in with Twitter" },
+    { name: "google" as const, icon: "/social/google.svg", label: "Sign up with Google" },
+    { name: "facebook" as const, icon: "/social/facebook.svg", label: "Sign up with Facebook" },
+    { name: "twitter" as const, icon: "/social/twitter.svg", label: "Sign up with Twitter" },
 ] as const;
 
-export function SignInSocial({ onOAuth }: SignInSocialProps) {
+export function SignUpSocial({ onOAuth }: SignUpSocialProps) {
     const [loadingProvider, setLoadingProvider] = useState<OAuthProvider | null>(null);
 
     const handleOAuthClick = useCallback(
@@ -33,7 +33,7 @@ export function SignInSocial({ onOAuth }: SignInSocialProps) {
     );
 
     return (
-        <div className="flex justify-center gap-4" role="group" aria-label="Social login options">
+        <div className="flex justify-center gap-4" role="group" aria-label="Social sign up options">
             {SOCIAL_PROVIDERS.map(({ name, icon, label }) => (
                 <button
                     key={name}
