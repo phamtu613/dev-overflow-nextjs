@@ -1,19 +1,12 @@
-export type TokenGetter = () => Promise<string | null>;
+// lib/api/auth-token.ts
+let tokenGetter: (() => Promise<string | null>) | null = null;
 
-let getAuthToken: TokenGetter | null = null;
-
-/**
- * Register auth token getter (call ONCE)
- * Ví dụ: Clerk getToken
- */
-export function registerAuthTokenGetter(getter: TokenGetter) {
-    getAuthToken = getter;
+export function registerAuthTokenGetter(
+    getter: () => Promise<string | null>,
+) {
+    tokenGetter = getter;
 }
 
-/**
- * Lấy access token hiện tại
- */
-export async function resolveAuthToken(): Promise<string | null> {
-    if (!getAuthToken) return null;
-    return getAuthToken();
+export async function getAuthToken() {
+    return tokenGetter ? tokenGetter() : null;
 }

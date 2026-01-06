@@ -20,12 +20,29 @@ export function useSignInActions() {
     const sendMagicLink = async (email: string) => {
         if (!isLoaded) return;
 
-        await signIn.create({
-            identifier: email,
+        // 1. Create sign-in attempt
+        await signIn.create({ identifier: email });
+
+        // 2. Find email_link factor
+        const emailLinkFactor = signIn.supportedFirstFactors?.find(
+            (f) => f.strategy === "email_link",
+        );
+
+        if (!emailLinkFactor || !("emailAddressId" in emailLinkFactor)) {
+            throw new Error("Email link not supported");
+        }
+
+        // 3. Send magic link
+        await signIn.prepareFirstFactor({
             strategy: "email_link",
-            redirectUrl: "/sso-callback",
+            emailAddressId: emailLinkFactor.emailAddressId,
+            redirectUrl: `${window.location.origin}/sso-callback`,
         });
     };
+
+
+
+
 
     return {
         isLoaded,

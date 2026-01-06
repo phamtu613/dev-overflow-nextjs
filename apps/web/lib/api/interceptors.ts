@@ -1,44 +1,15 @@
-import type { InternalAxiosRequestConfig } from "axios";
+import { getAuthToken } from "./auth-token";
 import { apiClient } from "./client";
-import { resolveAuthToken } from "./auth-token";
 
-/* ---------------- Request ---------------- */
+apiClient.interceptors.request.use(async (config) => {
+    console.log("[API] request:", config.url);
 
-async function attachAuthHeader(
-    config: InternalAxiosRequestConfig,
-): Promise<InternalAxiosRequestConfig> {
-    const token = await resolveAuthToken();
+    const token = await getAuthToken();
+    console.log("[API] token attached:", token);
 
     if (token) {
-        config.headers.set("Authorization", `Bearer ${token}`);
+        config.headers.Authorization = `Bearer ${token}`;
     }
 
     return config;
-}
-
-/* ---------------- Response ---------------- */
-
-function emitUnauthorized() {
-    if (typeof window !== "undefined") {
-        window.dispatchEvent(new Event("auth:unauthorized"));
-    }
-}
-
-/* ---------------- Register ---------------- */
-
-export function setupApiInterceptors() {
-    apiClient.interceptors.request.use(
-        (config) => attachAuthHeader(config),
-        (error) => Promise.reject(error),
-    );
-
-    apiClient.interceptors.response.use(
-        (response) => response,
-        (error) => {
-            if (error.response?.status === 401) {
-                emitUnauthorized();
-            }
-            return Promise.reject(error);
-        },
-    );
-}
+});

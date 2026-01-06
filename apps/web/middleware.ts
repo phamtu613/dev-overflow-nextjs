@@ -4,7 +4,7 @@ const isPublicRoute = createRouteMatcher([
   "/sign-in(.*)",
   "/sign-up(.*)",
   "/sso-callback(.*)",
-  "/dashboard(.*)"
+  "/check-email(.*)",
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
@@ -13,11 +13,6 @@ export default clerkMiddleware(async (auth, req) => {
   // ❌ Chưa login mà vào private → đẩy về sign-in
   if (!isPublicRoute(req) && !userId) {
     return Response.redirect(new URL("/sign-in", req.url));
-  }
-
-  // ✅ Đã login mà còn ở sign-in / sign-up → đẩy sang dashboard
-  if (userId && isPublicRoute(req)) {
-    return Response.redirect(new URL("/dashboard", req.url));
   }
 });
 

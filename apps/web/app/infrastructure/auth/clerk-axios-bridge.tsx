@@ -1,27 +1,21 @@
 "use client";
 
-import { useEffect } from "react";
 import { useAuth } from "@clerk/nextjs";
-import {
-    registerAuthTokenGetter,
-    setupApiInterceptors,
-} from "@/lib/api";
-
-let initialized = false;
+import { useEffect } from "react";
 
 export function ClerkAxiosBridge() {
-    const { getToken } = useAuth();
+    const { isSignedIn, isLoaded, getToken } = useAuth();
 
     useEffect(() => {
-        registerAuthTokenGetter(() =>
-            getToken({ template: "internal" }),
-        );
+        if (!isLoaded) return;
 
-        if (!initialized) {
-            setupApiInterceptors();
-            initialized = true;
-        }
-    }, [getToken]);
+        console.log("isSignedIn:", isSignedIn);
+        console.log("session:", window.Clerk.session);
+
+        getToken({ template: "backend-test" }).then((token) => {
+            console.log("internal token:", token);
+        });
+    }, [isLoaded, isSignedIn, getToken]);
 
     return null;
 }

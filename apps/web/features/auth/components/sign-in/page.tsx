@@ -1,50 +1,38 @@
 "use client";
 
-import { useAuth } from "@clerk/nextjs";
-import { useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-
-import { SignInForm } from "./sign-in-form";
-import { SignInSocial } from "./sign-in-social";
-import { useSignInActions } from "../../hooks/use-sign-in-actions";
+import { useMagicLink } from "../../hooks/use-magic-link";
+import { Input } from "@repo/ui/input";
+import { Button } from "@repo/ui/button";
 
 export default function SignInPage() {
-    const { isSignedIn, isLoaded } = useAuth();
+    const [email, setEmail] = useState("");
     const router = useRouter();
+    const { sendMagicLink } = useMagicLink();
 
-    const {
-        signInWithOAuth,
-        sendMagicLink,
-    } = useSignInActions();
+    const onSubmit = async () => {
+        await sendMagicLink(email);
 
-    // ✅ Redirect nếu đã login
-    useEffect(() => {
-        if (isLoaded && isSignedIn) {
-            router.replace("/dashboard");
-        }
-    }, [isLoaded, isSignedIn, router]);
-
-    // ⛔ Chưa load Clerk → không render gì
-    if (!isLoaded) return null;
-
-    // ⛔ Đã login → không render form
-    if (isSignedIn) return null;
+        // 👉 Sau khi gửi xong → sang trang check email
+        router.push("/check-email?email=" + encodeURIComponent(email));
+    };
 
     return (
         <div className="min-h-screen flex items-center justify-center">
-            <div className="w-full max-w-md space-y-8">
+            <div className="space-y-4 w-[320px]">
+                <Input
+                    placeholder="you@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
 
-                {/* OAuth */}
-                <SignInSocial onOAuth={signInWithOAuth} />
-
-                {/* Divider */}
-                <div className="text-center text-gray-400 text-sm">
-                    or continue with email
-                </div>
-
-                {/* Magic link form */}
-                <SignInForm onSubmit={sendMagicLink} />
-
+                <Button
+                    onClick={onSubmit}
+                    className="w-full bg-black text-white py-2"
+                >
+                    Send magic link
+                </Button>
             </div>
         </div>
     );
