@@ -21,19 +21,20 @@ export default function SignInPage() {
             const signInResponse = await signIn.create({ identifier: email });
 
             const emailFactor = signInResponse.supportedFirstFactors?.find(
-                (factor) => factor.strategy === "email_code"
+                (factor) => factor.strategy === "email_link"
             );
 
-            if (!emailFactor || emailFactor.strategy !== "email_code") {
-                throw new Error("Email code authentication not supported");
+            if (!emailFactor || emailFactor.strategy !== "email_link") {
+                throw new Error("Email link authentication not supported");
             }
 
             await signIn.prepareFirstFactor({
-                strategy: "email_code",
+                strategy: "email_link",
                 emailAddressId: emailFactor.emailAddressId,
+                redirectUrl: `${window.location.origin}/sign-in/sso-callback`,
             });
 
-            window.location.href = "/verify-email";
+            window.location.href = "/check-email";
         },
         [signIn]
     );
