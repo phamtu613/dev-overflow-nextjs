@@ -37,7 +37,7 @@ export function useSignUpForm() {
                 await signUpWithEmail(signUp, values);
 
                 // Redirect to check-email page
-                router.push("/check-email");
+                router.push("/verify-email");
             } catch (err: any) {
                 setError(err?.errors?.[0]?.message ?? "Sign up failed");
             }

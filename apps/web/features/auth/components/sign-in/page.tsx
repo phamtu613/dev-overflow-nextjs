@@ -1,17 +1,26 @@
 "use client";
 
-import { useCallback } from "react";
-import { useSignIn } from "@clerk/nextjs";
+import { useCallback, useEffect } from "react";
+import { useSignIn, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import Image from "next/image";
 import { SignInForm } from "./sign-in-form";
 import { SignInSocial } from "./sign-in-social";
 import { OAUTH_PROVIDERS, type OAuthProvider } from "@/features/auth/constants/oauth";
+import { useRouter } from "next/navigation";
 
 // Constants moved outside component to avoid recreation on each render
 
 export default function SignInPage() {
     const { signIn, isLoaded } = useSignIn();
+    const { isSignedIn } = useUser();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (isSignedIn) {
+            router.replace("/");
+        }
+    }, [isSignedIn]);
 
     // Email login handler with proper error handling
     const handleEmailSubmit = useCallback(
@@ -46,8 +55,8 @@ export default function SignInPage() {
 
             await signIn.authenticateWithRedirect({
                 strategy: OAUTH_PROVIDERS[provider].strategy,
-                redirectUrl: "/sso-callback",
-                redirectUrlComplete: "/",
+                redirectUrl: `${window.location.origin}/sign-in/sso-callback`,
+                redirectUrlComplete: `${window.location.origin}/`,
             });
         },
         [signIn]

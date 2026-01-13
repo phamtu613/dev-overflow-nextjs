@@ -12,8 +12,8 @@ export function useSignInActions() {
 
         await signIn.authenticateWithRedirect({
             strategy: OAUTH_PROVIDERS[provider].strategy,
-            redirectUrl: "/sso-callback",
-            redirectUrlComplete: "/dashboard",
+            redirectUrl: `${window.location.origin}/sign-in/sso-callback`,
+            redirectUrlComplete: `${window.location.origin}/`,
         });
     };
 
@@ -36,7 +36,7 @@ export function useSignInActions() {
         await signIn.prepareFirstFactor({
             strategy: "email_link",
             emailAddressId: emailLinkFactor.emailAddressId,
-            redirectUrl: `${window.location.origin}/sso-callback`,
+            redirectUrl: `${window.location.origin}/sign-in/sso-callback`,
         });
     };
 
