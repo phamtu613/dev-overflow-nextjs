@@ -5,8 +5,8 @@ import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { AuthForm } from "../shared/auth-email-form/auth-form";
 
-import { AuthForm } from "../shared";
 
 export default function SignUpPage() {
     const { isSignedIn } = useUser();
