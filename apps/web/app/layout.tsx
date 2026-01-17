@@ -13,9 +13,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-black bg-[url('/bg-dark.png')] bg-cover bg-no-repeat">
         <ClerkProvider>
           <ClerkAxiosBridge />
-          <div className="flex min-h-screen items-center justify-center">
-            {children}
-          </div>
+          {children}
         </ClerkProvider>
       </body>
     </html>
