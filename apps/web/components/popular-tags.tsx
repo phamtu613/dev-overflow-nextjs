@@ -1,8 +1,7 @@
-import { PopularTag } from "@/types";
 import Image from "next/image";
 
 interface PopularTagsProps {
-  tags: PopularTag[];
+  tags: any[];
 }
 
 export function PopularTags({ tags }: PopularTagsProps) {

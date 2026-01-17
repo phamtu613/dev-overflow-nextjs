@@ -1,8 +1,7 @@
-import { User } from "@/types";
 import Image from "next/image";
 
 interface ProfileStatsProps {
-  user: User;
+  user: any;
 }
 
 export function ProfileStats({ user }: ProfileStatsProps) {

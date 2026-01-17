@@ -1,7 +1,6 @@
-import { Question } from "@/types";
 import { QuestionCard } from "./question-card";
 interface QuestionListProps {
-  questions: Question[];
+  questions: any[];
 }
 
 export function QuestionList({ questions }: QuestionListProps) {

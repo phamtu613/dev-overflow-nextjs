@@ -1,8 +1,7 @@
-import { TopPost } from "@/types";
 import { QuestionCard } from "./question-card";
 
 interface TopPostsProps {
-  posts: TopPost[];
+  posts: any[];
 }
 
 export function TopPosts({ posts }: TopPostsProps) {

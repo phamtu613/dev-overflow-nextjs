@@ -1,13 +1,14 @@
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 import unicorn from "eslint-plugin-unicorn";
+import boundaries from "eslint-plugin-boundaries";
 
 export default [
+    /* ================= BASE ================= */
     js.configs.recommended,
-
     ...tseslint.configs.recommended,
 
-    // Global ignores
+    /* ================= GLOBAL IGNORE ================= */
     {
         ignores: [
             "**/*.cjs",
@@ -18,38 +19,44 @@ export default [
         ],
     },
 
+    /* ================= TYPESCRIPT ================= */
     {
         files: ["**/*.{ts,tsx}"],
         plugins: {
             unicorn,
+            boundaries,
+        },
+        settings: {
+            "boundaries/elements": [
+                { type: "app", pattern: "apps/web/app/**" },
+                { type: "features", pattern: "apps/web/features/**" },
+                { type: "components", pattern: "apps/web/components/**" },
+                { type: "lib", pattern: "apps/web/lib/**" },
+                { type: "hooks", pattern: "apps/web/hooks/**" },
+            ],
         },
         rules: {
             /* ================= CODE ================= */
             "@typescript-eslint/naming-convention": [
                 "error",
-                // Default for variables - camelCase
                 {
                     selector: "variable",
                     format: ["camelCase", "UPPER_CASE"],
                 },
-                // Allow PascalCase for React components (functions)
                 {
                     selector: "function",
                     format: ["camelCase", "PascalCase"],
                 },
-                // Allow PascalCase for const that could be React components
                 {
                     selector: "variable",
                     modifiers: ["const"],
                     format: ["camelCase", "PascalCase", "UPPER_CASE"],
                 },
-                // Parameters - allow PascalCase for destructured React components (e.g., { icon: Icon })
                 {
                     selector: "parameter",
                     format: ["camelCase", "PascalCase"],
                     leadingUnderscore: "allow",
                 },
-                // Types and interfaces should be PascalCase
                 {
                     selector: "typeLike",
                     format: ["PascalCase"],
@@ -57,11 +64,49 @@ export default [
             ],
 
             /* ================= FILE NAME ================= */
-            // Enforce kebab-case for all files (Next.js App Router convention)
             "unicorn/filename-case": [
                 "error",
                 {
                     case: "kebabCase",
+                },
+            ],
+
+            /* ================= ARCHITECTURE ================= */
+            "boundaries/element-types": [
+                "error",
+                {
+                    default: "disallow",
+                    rules: [
+                        /* app = composition layer */
+                        {
+                            from: "app",
+                            allow: ["features", "components", "lib", "hooks"],
+                        },
+
+                        /* features = domain logic */
+                        {
+                            from: "features",
+                            allow: ["features", "components", "lib", "hooks"],
+                        },
+
+                        /* components = dumb UI */
+                        {
+                            from: "components",
+                            allow: ["components", "lib"],
+                        },
+
+                        /* hooks = shared logic */
+                        {
+                            from: "hooks",
+                            allow: ["hooks", "lib"],
+                        },
+
+                        /* lib = pure infra / utils */
+                        {
+                            from: "lib",
+                            allow: ["lib"],
+                        },
+                    ],
                 },
             ],
         },

@@ -2,12 +2,11 @@
 
 import { Badge } from "@repo/ui/badge";
 import { QuestionMetrics } from "@/components/shared/question-metrics";
-import { Question } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
 interface SavedQuestionCardProps {
-  question: Question;
+  question: any;
 }
 
 export function SavedQuestionCard({ question }: SavedQuestionCardProps) {
@@ -34,7 +33,7 @@ export function SavedQuestionCard({ question }: SavedQuestionCardProps) {
 
           {/* Tags */}
           <div className="flex flex-wrap gap-2">
-            {question.tags.map((tag) => (
+            {question.tags.map((tag: any) => (
               <Badge
                 key={tag.id}
                 className="bg-light-800 dark:bg-dark-300 text-light-400 dark:text-light-500 uppercase text-[10px] font-medium leading-[13px] px-4 py-2 rounded-md hover:bg-light-700 dark:hover:bg-dark-400 cursor-pointer transition-colors"

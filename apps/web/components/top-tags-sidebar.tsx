@@ -1,12 +1,11 @@
-import { TopTagItem } from "@/types";
 
 interface TopTagsSidebarProps {
-  tags: TopTagItem[];
+  tags: any[];
 }
 
 export function TopTagsSidebar({ tags }: TopTagsSidebarProps) {
   return (
-    <div className="bg-white dark:bg-[#11141C] transition pt-9 pr-11 pb-9 pl-11">
+    <div className="bg-white dark:bg-[#11141C] transition pt- 9 pr-11 pb-9 pl-11">
       <h2 className="text-xl font-bold text-color-foreground mb-6">Top Tags</h2>
 
       <div className="space-y-3">

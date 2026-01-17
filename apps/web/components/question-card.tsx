@@ -1,10 +1,9 @@
 import { QuestionMetrics } from "@/components/shared/question-metrics";
-import { Question } from "@/types";
 import { Badge } from "@repo/ui/badge";
 import Link from "next/link";
 
 interface QuestionCardProps {
-  question: Question;
+  question: any;
 }
 
 export function QuestionCard({ question }: QuestionCardProps) {
@@ -25,7 +24,7 @@ export function QuestionCard({ question }: QuestionCardProps) {
       </div>
 
       <div className="flex flex-wrap gap-2 mb-4">
-        {question.tags.map((tag) => (
+        {question.tags.map((tag: any) => (
           <Badge
             key={tag.id}
             variant="secondary"

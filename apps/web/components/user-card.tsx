@@ -1,9 +1,8 @@
-import { BaseUser } from "@/types/user";
 import Image from "next/image";
 import Link from "next/link";
 
 interface UserCardProps {
-  user: BaseUser;
+  user: any;
 }
 
 export function UserCard({ user }: UserCardProps) {

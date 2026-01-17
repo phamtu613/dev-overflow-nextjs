@@ -1,9 +1,8 @@
-import { Job } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
 interface Props {
-  job: Job;
+  job: any;
 }
 
 export const JobCard = ({ job }: Props) => {
