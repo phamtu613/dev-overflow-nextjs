@@ -12,3 +12,56 @@
   font-weight: 600;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
+
+:root {
+  /* ================= ACCENT ================= */
+  --accent-gradient: linear-gradient(90deg,
+      #f2994a 0%,
+      #f2c94c 100%);
+  --accent-800: #f2994a;
+
+  /* ================= DARK ================= */
+  --dark-100: #000000;
+  --dark-200: #0f1117;
+  --dark-300: #151821;
+  --dark-400: #212734;
+  --dark-500: #3f4354;
+
+  --dark-gradient: linear-gradient(180deg,
+      rgba(23, 28, 35, 0.41) 0%,
+      rgba(19, 22, 28, 0.70) 100%);
+
+  /* ================= LIGHT ================= */
+  --light-900: #ffffff;
+  --light-850: #fdfdfd;
+  --light-800: #f4f6f8;
+  --light-700: #dce3f1;
+  --light-500: #7b8ec8;
+  --light-400: #858ead;
+}
+
+/* ================= THEME ================= */
+
+[data-theme="dark"] {
+  --bg-primary: var(--dark-100);
+  --bg-secondary: var(--dark-300);
+  --bg-card: var(--dark-400);
+
+  --text-primary: var(--light-900);
+  --text-secondary: var(--light-700);
+  --text-muted: var(--dark-500);
+
+  --border-color: var(--dark-300);
+}
+
+[data-theme="light"] {
+  --bg-primary: var(--light-900);
+  --bg-secondary: var(--light-800);
+  --bg-card: var(--light-850);
+
+  --text-primary: var(--dark-100);
+  --text-secondary: var(--dark-400);
+  --text-muted: var(--dark-500);
+
+  --border-color: var(--light-700);
+}

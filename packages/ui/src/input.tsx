@@ -7,19 +7,26 @@ import * as React from "react";
 import { cn } from "@repo/utils/cn";
 
 const inputVariants = cva(
-  "flex w-full rounded-[10px] border bg-transparent transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
+  "flex w-full rounded-[6px] border bg-gradient-to-b from-[#141720] to-[#0f1117] text-white transition-all duration-200 \
+   file:border-0 file:bg-transparent file:text-sm file:font-medium \
+   placeholder:text-gray-500 \
+   focus-visible:outline-none \
+   focus-visible:ring-2 \
+   focus-visible:ring-orange-400/40 \
+   focus-visible:border-orange-400/60 \
+   disabled:cursor-not-allowed disabled:opacity-50",
   {
     variants: {
       variant: {
-        default: "border-input shadow-none",
-        filled: "border-transparent bg-muted",
-        ghost: "border-transparent hover:bg-muted/50",
-        error: "border-destructive focus-visible:ring-destructive",
+        default: "border-white/10",
+        filled: "border-transparent bg-white/5",
+        ghost: "border-transparent hover:bg-white/5",
+        error: "border-red-500 focus-visible:ring-red-500/40",
       },
       inputSize: {
-        default: "h-10 px-3 py-1 text-base md:text-sm",
-        sm: "h-8 px-2 py-1 text-sm",
-        lg: "h-12 px-4 py-2 text-base",
+        default: "h-11 px-4 text-sm",
+        sm: "h-9 px-3 text-xs",
+        lg: "h-12 px-5 text-base",
       },
     },
     defaultVariants: {
@@ -29,17 +36,30 @@ const inputVariants = cva(
   }
 );
 
+
+
 export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">,
   VariantProps<typeof inputVariants> {
+
+  /* Label */
+  label?: string;
+
+  /* Icons */
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
+
+  /* Custom elements */
   leftElement?: React.ReactNode;
   rightElement?: React.ReactNode;
+
+  /* States */
   error?: boolean;
+
+  /* Polymorphic */
   asChild?: boolean;
-  label?: string;
 }
+
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
@@ -61,14 +81,24 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const Comp = asChild ? Slot : "input";
     const finalVariant = error ? "error" : variant;
+    const inputId = props.id || label;
 
-    // If no icons or elements, render simple input
     if (!leftIcon && !rightIcon && !leftElement && !rightElement) {
       return (
         <>
-          <label htmlFor={label}>{label}</label>
+          {label && (
+            <label
+              htmlFor={inputId}
+              className="mb-1 block text-sm text-gray-400"
+            >
+              {label}
+            </label>
+          )}
+
           <Comp
+            id={inputId}
             type={type}
+            aria-invalid={finalVariant === "error"}
             className={cn(
               inputVariants({ variant: finalVariant, inputSize, className })
             )}
@@ -79,104 +109,49 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       );
     }
 
-    // Size-based spacing
-    const iconPositionClass =
-      inputSize === "lg" ? "left-4" : inputSize === "sm" ? "left-2" : "left-3";
-    const rightIconPositionClass =
-      inputSize === "lg"
-        ? "right-4"
-        : inputSize === "sm"
-          ? "right-2"
-          : "right-3";
-    const leftPaddingClass =
-      leftIcon && !leftElement
-        ? inputSize === "lg"
-          ? "pl-12"
-          : inputSize === "sm"
-            ? "pl-8"
-            : "pl-10"
-        : inputSize === "lg"
-          ? "pl-4"
-          : inputSize === "sm"
-            ? "pl-2"
-            : "pl-3";
-    const rightPaddingClass =
-      rightIcon && !rightElement
-        ? inputSize === "lg"
-          ? "pr-12"
-          : inputSize === "sm"
-            ? "pr-8"
-            : "pr-10"
-        : inputSize === "lg"
-          ? "pr-4"
-          : inputSize === "sm"
-            ? "pr-2"
-            : "pr-3";
-
-    // With icons/elements, wrap in a container
     return (
       <div
         className={cn(
           "relative flex items-center",
           inputVariants({ variant: finalVariant, inputSize }),
-          "p-0", // Reset padding, will be applied to inner elements
+          "p-0",
           className
         )}
       >
         {leftElement && (
-          <div
-            className={cn(
-              "flex items-center text-muted-foreground",
-              inputSize === "lg" ? "pl-4" : inputSize === "sm" ? "pl-2" : "pl-3"
-            )}
-          >
+          <div className="flex items-center pl-3 text-muted-foreground">
             {leftElement}
           </div>
         )}
+
         {leftIcon && !leftElement && (
-          <div
-            className={cn(
-              "pointer-events-none absolute flex items-center text-muted-foreground",
-              iconPositionClass
-            )}
-          >
+          <div className="pointer-events-none absolute left-3 flex items-center text-muted-foreground">
             {leftIcon}
           </div>
         )}
+
         <Comp
+          id={inputId}
           type={type}
-          className={cn(
-            "flex-1 w-full bg-transparent border-0 focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-muted-foreground",
-            inputSize === "sm"
-              ? "h-8 text-sm"
-              : inputSize === "lg"
-                ? "h-12 text-base"
-                : "h-10 text-base md:text-sm",
-            leftPaddingClass,
-            rightPaddingClass,
-            leftElement && "pl-2",
-            rightElement && "pr-2"
-          )}
+          aria-invalid={finalVariant === "error"}
+          className="
+            flex-1 bg-transparent border-0
+            focus-visible:outline-none
+            focus-visible:ring-0
+            placeholder:text-muted-foreground
+          "
           ref={ref}
           {...props}
         />
+
         {rightIcon && !rightElement && (
-          <div
-            className={cn(
-              "pointer-events-none absolute flex items-center text-muted-foreground",
-              rightIconPositionClass
-            )}
-          >
+          <div className="pointer-events-none absolute right-3 flex items-center text-muted-foreground">
             {rightIcon}
           </div>
         )}
+
         {rightElement && (
-          <div
-            className={cn(
-              "flex items-center text-muted-foreground",
-              inputSize === "lg" ? "pr-4" : inputSize === "sm" ? "pr-2" : "pr-3"
-            )}
-          >
+          <div className="flex items-center pr-3 text-muted-foreground">
             {rightElement}
           </div>
         )}
@@ -184,6 +159,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
+
 Input.displayName = "Input";
 
 export { Input, inputVariants };
