@@ -10,19 +10,25 @@ export function QuestionList({ questions }: QuestionListProps) {
       <div className="flex items-center gap-4">
         <button
           type="button"
-          className="text-primary bg-[#FFF1E6] font-medium py-3 px-6 text-sm cursor-pointer rounded-lg"
+          className="text-primary-500 bg-light-800 dark:bg-dark-300 font-medium py-3 px-6 text-sm cursor-pointer rounded-lg shadow-none"
         >
           Newest
         </button>
         <button
           type="button"
-          className="text-muted-foreground bg-[#F4F6F8] px-6 py-3 font-medium hover:text-primary hover:bg-[#FFF1E6] text-sm transition-colors cursor-pointer rounded-lg"
+          className="text-light-500 bg-light-800 dark:bg-dark-300 px-6 py-3 font-medium hover:text-primary-500 text-sm transition-colors cursor-pointer rounded-lg shadow-none"
         >
-          Active
+          Recommended Questions
         </button>
         <button
           type="button"
-          className="text-muted-foreground bg-[#F4F6F8] px-6 py-3 font-medium hover:text-primary hover:bg-[#FFF1E6] text-sm transition-colors cursor-pointer rounded-lg"
+          className="text-light-500 bg-light-800 dark:bg-dark-300 px-6 py-3 font-medium hover:text-primary-500 text-sm transition-colors cursor-pointer rounded-lg shadow-none"
+        >
+          Frequent
+        </button>
+        <button
+          type="button"
+          className="text-light-500 bg-light-800 dark:bg-dark-300 px-6 py-3 font-medium hover:text-primary-500 text-sm transition-colors cursor-pointer rounded-lg shadow-none"
         >
           Unanswered
         </button>

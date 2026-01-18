@@ -1,16 +1,16 @@
 {
     "name": "@repo/tailwind-config",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "private": true,
-    "license": "MIT",
+    "main": "tailwind.config.ts",
     "exports": {
-        "./config": "./config.js",
-        "./postcss": "./postcss.js"
+        "./config": "./tailwind.config.ts",
+        "./theme": "./theme.css",
+        "./postcss": "./postcss.config.cjs"
     },
-    "files": [
-        "*.js"
-    ],
-    "devDependencies": {
-        "tailwindcss": "^4.1.17"
+    "dependencies": {
+        "@tailwindcss/postcss": "^4.1.17",
+        "postcss": "^8.5.6",
+        "autoprefixer": "^10.4.22"
     }
 }

@@ -10,7 +10,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-black bg-[url('/bg-dark.png')] bg-cover bg-no-repeat">
+      <body className="min-h-screen bg-black bg-[url('/bg-dark.png')] z-10 bg-cover bg-no-repeat">
         <ClerkProvider>
           <ClerkAxiosBridge />
           {children}

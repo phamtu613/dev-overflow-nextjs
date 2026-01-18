@@ -24,8 +24,6 @@ export function AuthLayout({
     return (
         <div className="
       min-h-screen w-full
-      bg-[url('/bg_stackoverflow.svg')]
-      bg-no-repeat bg-cover
       flex items-center justify-center
       relative
       py-10

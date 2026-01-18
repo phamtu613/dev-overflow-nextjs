@@ -8,7 +8,7 @@ interface QuestionCardProps {
 
 export function QuestionCard({ question }: QuestionCardProps) {
   return (
-    <article className="border p-9 rounded-xl border-[#C8CBD954] dark:bg-[#11141C] dark:text-card-foreground dark:border-b-background text-color-foreground bg-color-background dark:border-border transition dark:shadow-[0_0_40px_rgba(0,0,0,0.35)] hover:shadow-md">
+    <article className="border p-9 rounded-xl border-[#C8CBD954] dark:bg-dark-300 dark:text-card-foreground dark:border-b-background text-color-foreground bg-color-background dark:border-border transition dark:shadow-[0_0_40px_rgba(0,0,0,0.35)] hover:shadow-md">
       <div className="flex items-start justify-between mb-4">
         <div>
           <Link
@@ -28,7 +28,7 @@ export function QuestionCard({ question }: QuestionCardProps) {
           <Badge
             key={tag.id}
             variant="secondary"
-            className="bg-light-800 text-color-foreground cursor-pointer p-2 hover:bg-light-700 transition-colors"
+            className="bg-light-800 text-color-foreground cursor-pointer p-2 hover:bg-light-700 dark:bg-dark-400 dark:text-light-500 dark:hover:bg-dark-200 transition-colors"
           >
             {tag.name}
           </Badge>

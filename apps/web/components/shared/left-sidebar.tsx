@@ -13,7 +13,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const sidebarNav = [
-  { id: "1", icon: <Home className="w-5 h-5" />, label: "Home", href: "/" },
+  { id: "1", icon: <Home className="w-5 h-5" />, label: "Home", href: "/dashboard" },
   {
     id: "2",
     icon: <Star className="w-5 h-5" />,
@@ -54,7 +54,7 @@ const LeftSidebar = () => {
   const pathname = usePathname();
 
   return (
-    <aside className="h-screen bg-white dark:bg-background dark:border-r shadow pt-20 dark:border-border w-[260px] fixed left-0 top-0 z-20 flex flex-col">
+    <aside className="h-screen  bg-white dark:bg-background dark:border-r shadow pt-20 dark:border-border w-[260px] fixed left-0 top-0 z-20 flex flex-col">
       {/* Main navigation */}
       <nav className="flex-1 px-4 py-8 space-y-3 overflow-y-auto">
         {sidebarNav.map((item) => {
@@ -69,7 +69,7 @@ const LeftSidebar = () => {
                 "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-base font-medium",
                 isActive
                   ? "bg-primary text-primary-foreground"
-                  : "text-background dark:hover:bg-muted hover:text-foreground hover:bg-primary"
+                  : "text-white dark:hover:bg-muted hover:text-foreground hover:bg-primary"
               )}
             >
               {item.icon}
