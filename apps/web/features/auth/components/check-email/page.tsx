@@ -1,82 +1,29 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
-import { useSignIn } from "@clerk/nextjs";
+import { getMailProvider } from "../../utils/mail-provider";
+import { useCountdown } from "../../hooks/use-countdown";
+import { useResendMagicLink } from "../../hooks/use-resend-magic-link";
 import Image from "next/image";
 
-/* detect mail provider */
-function getMailProvider(email?: string | null) {
-    if (!email) {
-        return { label: "Open inbox", url: "https://mail.google.com" };
-    }
-
-    const domain = email.split("@")[1];
-
-    if (domain === "gmail.com") {
-        return { label: "Open Gmail", url: "https://mail.google.com" };
-    }
-
-    if (domain === "outlook.com" || domain === "hotmail.com") {
-        return {
-            label: "Open Outlook",
-            url: "https://outlook.live.com/mail/",
-        };
-    }
-
-    if (domain === "yahoo.com") {
-        return { label: "Open Yahoo Mail", url: "https://mail.yahoo.com" };
-    }
-
-    return {
-        label: `Open ${domain}`,
-        url: `https://${domain}`,
-    };
-}
 
 export default function CheckEmailPage() {
     const params = useSearchParams();
     const email = params.get("email");
     const emailAddressId = params.get("emailId");
 
-    const { signIn } = useSignIn();
-
-    const [countdown, setCountdown] = useState(30);
-    const [loading, setLoading] = useState(false);
-
     const mailProvider = useMemo(
         () => getMailProvider(email),
         [email]
     );
 
-    /* countdown */
-    useEffect(() => {
-        if (countdown <= 0) return;
+    const { countdown, reset } = useCountdown(30);
+    const { resend, loading } = useResendMagicLink();
 
-        const timer = setInterval(() => {
-            setCountdown((c) => c - 1);
-        }, 1000);
-
-        return () => clearInterval(timer);
-    }, [countdown]);
-
-    /* resend */
     const handleResend = async () => {
-        if (!signIn || !emailAddressId) return;
-
-        try {
-            setLoading(true);
-
-            await signIn.prepareFirstFactor({
-                strategy: "email_link",
-                emailAddressId,
-                redirectUrl: `${window.location.origin}/sign-in/sso-callback`,
-            });
-
-            setCountdown(30);
-        } finally {
-            setLoading(false);
-        }
+        await resend(emailAddressId);
+        reset();
     };
 
     return (

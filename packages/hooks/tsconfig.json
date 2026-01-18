@@ -6,7 +6,8 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src",
+    "../../apps/web/features/auth/hooks/use-countdown.ts"
   ],
   "exclude": [
     "node_modules",
