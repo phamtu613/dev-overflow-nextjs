@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useCallback } from "react";
@@ -42,16 +41,18 @@ export function useAuthForm(mode: Mode): UseAuthFormReturn {
         },
     });
 
+    // ===== OAuth =====
     const handleOAuth = useCallback(
         async (provider: OAuthProvider) => {
             if (!signInLoaded || !signIn) return;
 
             try {
                 setIsLoading(true);
+
                 await signIn.authenticateWithRedirect({
                     strategy: OAUTH_PROVIDERS[provider].strategy,
                     redirectUrl: `${window.location.origin}/sign-in/sso-callback`,
-                    redirectUrlComplete: `${window.location.origin}/`,
+                    redirectUrlComplete: `${window.location.origin}/dashboard`,
                 });
             } catch (err) {
                 console.error("OAuth error:", err);
@@ -62,14 +63,18 @@ export function useAuthForm(mode: Mode): UseAuthFormReturn {
         [signIn, signInLoaded]
     );
 
+    // ===== Submit =====
     const onSubmit = useCallback(
         async (values: SignInValues | SignUpValues) => {
             setError(null);
             setIsLoading(true);
 
             try {
+                // ---------- SIGN IN ----------
                 if (isSignIn) {
-                    if (!signInLoaded || !signIn) throw new Error("Sign in not ready");
+                    if (!signInLoaded || !signIn) {
+                        throw new Error("Sign in not ready");
+                    }
 
                     const { email } = values as SignInValues;
 
@@ -81,16 +86,24 @@ export function useAuthForm(mode: Mode): UseAuthFormReturn {
                         (f) => f.strategy === "email_link"
                     );
 
-                    if (!emailFactor) throw new Error("Email link not supported");
+                    if (!emailFactor) {
+                        throw new Error("Email link not supported");
+                    }
 
                     await signIn.prepareFirstFactor({
                         strategy: "email_link",
                         emailAddressId: emailFactor.emailAddressId,
                         redirectUrl: `${window.location.origin}/sign-in/sso-callback`,
                     });
+
                     router.replace("/check-email");
-                } else {
-                    if (!signUpLoaded || !signUp) throw new Error("Sign up not ready");
+                }
+
+                // ---------- SIGN UP ----------
+                else {
+                    if (!signUpLoaded || !signUp) {
+                        throw new Error("Sign up not ready");
+                    }
 
                     const { email, password } = values as SignUpValues;
 
@@ -111,7 +124,7 @@ export function useAuthForm(mode: Mode): UseAuthFormReturn {
                 setIsLoading(false);
             }
         },
-        [isSignIn, signIn, signInLoaded, signUp, signUpLoaded]
+        [isSignIn, signIn, signInLoaded, signUp, signUpLoaded, router]
     );
 
     return {
