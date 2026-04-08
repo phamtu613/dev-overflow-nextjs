@@ -7,10 +7,22 @@ export async function signInWithEmail(
     signIn: ClerkSignIn,
     data: SignInInput
 ) {
-    return signIn.create({
+    console.log("[AuthService] signInWithEmail:start", {
+        email: data.email,
+        hasPassword: Boolean(data.password),
+    });
+
+    const result = await signIn.create({
         identifier: data.email,
         password: data.password,
     });
+
+    console.log("[AuthService] signInWithEmail:success", {
+        status: result.status,
+        createdSessionId: result.createdSessionId ?? null,
+    });
+
+    return result;
 }
 
 export async function signUpWithEmail(

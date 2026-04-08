@@ -297,7 +297,7 @@ const newQuestion = await apiClient.post("/api/questions", {
 
 ```bash
 # .env.local
-NEXT_PUBLIC_API_URL=http://localhost:4000
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=http://localhost:4000
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_xxx
 CLERK_SECRET_KEY=sk_test_xxx
 ```

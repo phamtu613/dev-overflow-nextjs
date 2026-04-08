@@ -20,25 +20,43 @@ export default function SignInPage() {
         if (isSignedIn) {
             router.replace("/");
         }
-    }, [isSignedIn]);
+    }, [isSignedIn, router]);
 
     // Email login handler with proper error handling
     const handleEmailSubmit = useCallback(
         async (email: string) => {
             if (!signIn) throw new Error("Sign in not initialized");
 
+            console.log("[SignInPage] magic-link:start", {
+                email,
+            });
+
             const signInResponse = await signIn.create({ identifier: email });
+            console.log("[SignInPage] magic-link:signInResponse", {
+                status: signInResponse.status,
+                supportedFirstFactors: signInResponse.supportedFirstFactors?.map(
+                    (factor) => factor.strategy
+                ),
+            });
 
             const emailFactor = signInResponse.supportedFirstFactors?.find(
                 (factor) => factor.strategy === "email_link"
             );
 
             if (!emailFactor || emailFactor.strategy !== "email_link") {
+                console.log("[SignInPage] magic-link:emailFactor:missing", {
+                    email,
+                });
                 throw new Error("Email link authentication not supported");
             }
 
             await signIn.prepareFirstFactor({
                 strategy: "email_link",
+                emailAddressId: emailFactor.emailAddressId,
+                redirectUrl: `${window.location.origin}/sign-in/sso-callback`,
+            });
+
+            console.log("[SignInPage] magic-link:prepareFirstFactor:success", {
                 emailAddressId: emailFactor.emailAddressId,
                 redirectUrl: `${window.location.origin}/sign-in/sso-callback`,
             });
@@ -52,6 +70,11 @@ export default function SignInPage() {
     const handleOAuth = useCallback(
         async (provider: OAuthProvider) => {
             if (!signIn) throw new Error("Sign in not initialized");
+
+            console.log("[SignInPage] oauth:start", {
+                provider,
+                strategy: OAUTH_PROVIDERS[provider].strategy,
+            });
 
             await signIn.authenticateWithRedirect({
                 strategy: OAUTH_PROVIDERS[provider].strategy,

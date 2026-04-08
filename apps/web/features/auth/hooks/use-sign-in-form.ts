@@ -27,21 +27,37 @@ export function useSignInForm() {
 
     const onSubmit = useCallback(
         async (values: SignInInput) => {
-            if (!isLoaded) return;
+            if (!isLoaded) {
+                console.log("[SignInFormHook] submit:skipped", {
+                    reason: "clerk_not_loaded",
+                });
+                return;
+            }
 
             try {
                 setError(null);
+                console.log("[SignInFormHook] submit:start", {
+                    email: values.email,
+                });
 
                 const result = await signInWithEmail(signIn, values);
+                console.log("[SignInFormHook] submit:result", {
+                    status: result.status,
+                    createdSessionId: result.createdSessionId ?? null,
+                });
 
                 if (result.status === "complete" && result.createdSessionId) {
                     await setActive({
                         session: result.createdSessionId,
                     });
+                    console.log("[SignInFormHook] submit:setActive:success", {
+                        sessionId: result.createdSessionId,
+                    });
                     // session đã active
                     // redirect để middleware / layout xử lý
                 }
             } catch (err: any) {
+                console.log("[SignInFormHook] submit:error", err);
                 setError(err?.errors?.[0]?.message ?? "Sign in failed");
             }
         },

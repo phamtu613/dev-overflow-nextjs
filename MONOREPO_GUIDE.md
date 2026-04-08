@@ -1139,7 +1139,7 @@ pnpm --filter web add axios
 import axios from "axios";
 
 export const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000",
+  baseURL: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "http://localhost:4000",
   headers: {
     "Content-Type": "application/json",
   },
@@ -1220,9 +1220,9 @@ export function LoginForm() {
 
 ```bash
 # apps/web/.env.local
-NEXT_PUBLIC_API_URL=http://localhost:4000
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=http://localhost:4000
 # or
-NEXT_PUBLIC_API_URL=https://api.dev-overflow-nextjs.com
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=https://api.dev-overflow-nextjs.com
 ```
 
 ### Sharing Schemas với Backend

@@ -2,20 +2,55 @@
 
 import { useAuth } from "@clerk/nextjs";
 import { useEffect } from "react";
+import { registerAuthTokenGetter } from "@/lib/api";
+import { getJwtSegmentCount, logClerkToken } from "@/lib/api/jwt-debug";
+
+const clerkJwtTemplate =
+    process.env.NEXT_PUBLIC_CLERK_JWT_TEMPLATE || "default";
 
 export function ClerkAxiosBridge() {
     const { isSignedIn, isLoaded, getToken } = useAuth();
 
     useEffect(() => {
-        if (!isLoaded) return;
-
-        console.log("isSignedIn:", isSignedIn);
-        console.log("session:", window.Clerk.session);
-
-        getToken({ template: "backend-test" }).then((token) => {
-            console.log("internal token:", token);
+        console.log("[ClerkAxiosBridge] registerAuthTokenGetter", {
+            isLoaded,
+            isSignedIn,
+            template: clerkJwtTemplate,
         });
-    }, [isLoaded, isSignedIn, getToken]);
+
+        registerAuthTokenGetter(async () => {
+            if (!isLoaded || !isSignedIn) {
+                console.log("[ClerkAxiosBridge] getToken:skipped", {
+                    isLoaded,
+                    isSignedIn,
+                    template: clerkJwtTemplate,
+                });
+                logClerkToken("getToken:skipped", null, {
+                    isLoaded,
+                    isSignedIn,
+                    template: clerkJwtTemplate,
+                });
+                return null;
+            }
+
+            const token = await getToken({ template: clerkJwtTemplate });
+            console.log("[ClerkAxiosBridge] getToken:resolved", {
+                hasToken: Boolean(token),
+                parts: getJwtSegmentCount(token),
+                template: clerkJwtTemplate,
+            });
+            console.log("token", token);
+            console.log("parts", getJwtSegmentCount(token));
+
+            logClerkToken("getToken:resolved", token, {
+                isLoaded,
+                isSignedIn,
+                template: clerkJwtTemplate,
+            });
+
+            return token;
+        });
+    }, [getToken, isLoaded, isSignedIn]);
 
     return null;
 }

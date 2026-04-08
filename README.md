@@ -399,7 +399,7 @@ export default function NewFeaturePage() {
 
 ```bash
 # apps/web/.env.local
-NEXT_PUBLIC_API_URL=http://localhost:4000
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=http://localhost:4000
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_xxx
 CLERK_SECRET_KEY=sk_test_xxx
 ```
@@ -411,7 +411,7 @@ CLERK_SECRET_KEY=sk_test_xxx
 import axios from "axios";
 
 export const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
   headers: { "Content-Type": "application/json" },
 });
 
