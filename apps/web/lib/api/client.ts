@@ -8,7 +8,8 @@ export const apiClient = axios.create({
 });
 
 apiClient.interceptors.request.use(async (config) => {
-    const token = await getAuthToken();
+    const token = await getAuthToken(); // ✅ CHỈ DÙNG CÁI NÀY
+
     console.log("[APIClient] request:start", {
         method: config.method?.toUpperCase(),
         url: config.url,
@@ -30,29 +31,3 @@ apiClient.interceptors.request.use(async (config) => {
 
     return config;
 });
-
-apiClient.interceptors.response.use(
-    (response) => {
-        console.log("[APIClient] response:success", {
-            method: response.config.method?.toUpperCase(),
-            url: response.config.url,
-            baseURL: response.config.baseURL,
-            status: response.status,
-            data: response.data,
-        });
-
-        return response;
-    },
-    (error) => {
-        console.log("[APIClient] response:error", {
-            method: error.config?.method?.toUpperCase(),
-            url: error.config?.url,
-            baseURL: error.config?.baseURL,
-            status: error.response?.status,
-            data: error.response?.data,
-            message: error.message,
-        });
-
-        return Promise.reject(error);
-    }
-);
