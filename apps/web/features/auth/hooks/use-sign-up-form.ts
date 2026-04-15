@@ -18,6 +18,9 @@ export function useSignUpForm() {
     const form = useForm<SignUpInput>({
         resolver: zodResolver(signUpSchema),
         defaultValues: {
+            firstName: "",
+            lastName: "",
+            username: "",
             email: "",
             password: "",
         },
@@ -38,8 +41,15 @@ export function useSignUpForm() {
 
                 // Redirect to check-email page
                 router.push("/verify-email");
-            } catch (err: any) {
-                setError(err?.errors?.[0]?.message ?? "Sign up failed");
+            } catch (err: unknown) {
+                const fallbackMessage = "Sign up failed";
+                if (typeof err === "object" && err !== null && "errors" in err) {
+                    const clerkErrors = (err as { errors?: Array<{ message?: string }> }).errors;
+                    setError(clerkErrors?.[0]?.message ?? fallbackMessage);
+                    return;
+                }
+
+                setError(fallbackMessage);
             }
         },
         [isLoaded, signUp, router]

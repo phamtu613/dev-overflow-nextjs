@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@repo/ui/button";
-import { Form } from "@repo/ui/form";
 import { Input } from "@repo/ui/input";
 import { Label } from "@repo/ui/label";
 import { useState, useCallback, type FormEvent, type ChangeEvent } from "react";
@@ -49,7 +48,7 @@ export function SignInForm({ onSubmit }: SignInFormProps) {
             <div className="space-y-2">
                 <Label
                     htmlFor="email"
-                    className="text-gray-300 text-sm font-medium"
+                    className="text-gray-800 text-sm font-medium"
                 >
                     Email address
                 </Label>
@@ -64,18 +63,15 @@ export function SignInForm({ onSubmit }: SignInFormProps) {
                     placeholder="name@example.com"
                     className="
                         w-full px-4 py-3 
-                        bg-[#151821]
+                        bg-white
                         rounded-xl
-                        text-white
-                        placeholder:text-gray-600
-                        border border-transparent
-                        focus:border-[#FF7000]
-                        focus:border-b-2
+                        text-gray-900
+                        placeholder:text-gray-400
+                        border border-gray-200
                         caret-[#FF7000]
-                        focus:outline-none
-                        focus:ring-0
-                        focus-visible:ring-0
-                        focus:shadow-[0_2px_0_0_#FF7000]
+                        focus:border-orange-400
+                        focus-visible:ring-2
+                        focus-visible:ring-orange-500
                         transition-all duration-200
                         disabled:opacity-50 disabled:cursor-not-allowed
                     "
@@ -83,7 +79,7 @@ export function SignInForm({ onSubmit }: SignInFormProps) {
             </div>
 
             {error && (
-                <p className="text-red-400 text-center text-sm" role="alert">
+                <p className="text-red-500 text-center text-sm" role="alert">
                     {error}
                 </p>
             )}
@@ -97,7 +93,7 @@ export function SignInForm({ onSubmit }: SignInFormProps) {
                     bg-[linear-gradient(90deg,#FF7000,#E2985E,#E2995F)] 
                     hover:opacity-90 
                     disabled:opacity-50 disabled:cursor-not-allowed
-                    focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-[#1a1d29]
+                    focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-white
                 "
             >
                 {loading ? "SENDING..." : "CONTINUE"}

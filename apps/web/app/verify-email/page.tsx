@@ -12,7 +12,7 @@ export default function VerifyEmailPage() {
     const [code, setCode] = useState(["", "", "", "", "", ""]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-
+    const [resending, setResending] = useState(false);
     if (!isLoaded || !signUp) return null;
 
     async function verify() {
@@ -29,7 +29,7 @@ export default function VerifyEmailPage() {
             if (result?.status === "complete" && result.createdSessionId) {
                 await setActive({ session: result.createdSessionId });
             }
-            router.push("/sign-in");
+            router.push("/");
         } catch (err: any) {
             setError(err.errors?.[0]?.message || "Invalid OTP");
         } finally {
@@ -50,11 +50,20 @@ export default function VerifyEmailPage() {
     }
 
     async function resend() {
-        if (!signUp) return;
+        if (!signUp || resending) return;
 
-        await signUp.prepareEmailAddressVerification({
-            strategy: "email_code",
-        });
+        try {
+            setResending(true);
+
+            await signUp.prepareEmailAddressVerification({
+                strategy: "email_code",
+            });
+
+        } catch (err) {
+            console.error("Resend error:", err);
+        } finally {
+            setResending(false);
+        }
     }
 
     return (

@@ -37,23 +37,24 @@ export function SignInSocial({ onOAuth }: SignInSocialProps) {
             {SOCIAL_PROVIDERS.map(({ name, icon, label }) => (
                 <button
                     key={name}
+                    type="button"
                     onClick={() => handleOAuthClick(name)}
                     disabled={loadingProvider !== null}
                     aria-label={label}
                     className="
                         w-12 h-12 
-                        bg-[#11131a] 
-                        border border-white/10 
+                        bg-white
+                        border border-gray-200
                         rounded-xl 
                         flex items-center justify-center 
-                        hover:bg-[#181b22] 
+                        hover:bg-gray-50
                         transition-colors
                         disabled:opacity-50 disabled:cursor-not-allowed
-                        focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-[#1a1d29]
+                        focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-white
                     "
                 >
                     {loadingProvider === name ? (
-                        <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                        <div className="w-5 h-5 border-2 border-gray-200 border-t-gray-600 rounded-full animate-spin" />
                     ) : (
                         <Image
                             src={icon}

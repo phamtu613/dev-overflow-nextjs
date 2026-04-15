@@ -1,20 +1,18 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
-import { useSignIn, useUser } from "@clerk/nextjs";
+import { useEffect } from "react";
+import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import Image from "next/image";
 import { SignInForm } from "./sign-in-form";
 import { SignInSocial } from "./sign-in-social";
-import { OAUTH_PROVIDERS, type OAuthProvider } from "@/features/auth/constants/oauth";
 import { useRouter } from "next/navigation";
-
-// Constants moved outside component to avoid recreation on each render
+import { useSignInActions } from "@/features/auth/hooks/use-sign-in-actions";
 
 export default function SignInPage() {
-    const { signIn, isLoaded } = useSignIn();
     const { isSignedIn } = useUser();
     const router = useRouter();
+    const { isLoaded, sendMagicLink, signInWithOAuth } = useSignInActions();
 
     useEffect(() => {
         if (isSignedIn) {
@@ -22,90 +20,21 @@ export default function SignInPage() {
         }
     }, [isSignedIn, router]);
 
-    // Email login handler with proper error handling
-    const handleEmailSubmit = useCallback(
-        async (email: string) => {
-            if (!signIn) throw new Error("Sign in not initialized");
-
-            console.log("[SignInPage] magic-link:start", {
-                email,
-            });
-
-            const signInResponse = await signIn.create({ identifier: email });
-            console.log("[SignInPage] magic-link:signInResponse", {
-                status: signInResponse.status,
-                supportedFirstFactors: signInResponse.supportedFirstFactors?.map(
-                    (factor) => factor.strategy
-                ),
-            });
-
-            const emailFactor = signInResponse.supportedFirstFactors?.find(
-                (factor) => factor.strategy === "email_link"
-            );
-
-            if (!emailFactor || emailFactor.strategy !== "email_link") {
-                console.log("[SignInPage] magic-link:emailFactor:missing", {
-                    email,
-                });
-                throw new Error("Email link authentication not supported");
-            }
-
-            await signIn.prepareFirstFactor({
-                strategy: "email_link",
-                emailAddressId: emailFactor.emailAddressId,
-                redirectUrl: `${window.location.origin}/sign-in/sso-callback`,
-            });
-
-            console.log("[SignInPage] magic-link:prepareFirstFactor:success", {
-                emailAddressId: emailFactor.emailAddressId,
-                redirectUrl: `${window.location.origin}/sign-in/sso-callback`,
-            });
-
-            window.location.href = "/check-email";
-        },
-        [signIn]
-    );
-
-    // OAuth login handler with proper error handling
-    const handleOAuth = useCallback(
-        async (provider: OAuthProvider) => {
-            if (!signIn) throw new Error("Sign in not initialized");
-
-            console.log("[SignInPage] oauth:start", {
-                provider,
-                strategy: OAUTH_PROVIDERS[provider].strategy,
-            });
-
-            await signIn.authenticateWithRedirect({
-                strategy: OAUTH_PROVIDERS[provider].strategy,
-                redirectUrl: `${window.location.origin}/sign-in/sso-callback`,
-                redirectUrlComplete: `${window.location.origin}/`,
-            });
-        },
-        [signIn]
-    );
-
     if (!isLoaded) {
         return (
-            <div className="min-h-screen w-full bg-black flex items-center justify-center">
-                <div className="text-white">Loading...</div>
+            <div className="min-h-screen w-full bg-[#f6f6f6] flex items-center justify-center">
+                <div className="text-gray-600">Loading...</div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen w-full bg-black bg-[url('/bg_stackoverflow.svg')] bg-no-repeat bg-cover flex items-center justify-center relative">
-            {/* Background blur effects */}
-            <div className="absolute inset-0 opacity-20 pointer-events-none">
-                <div className="h-96 w-96 bg-orange-500 rounded-full blur-[150px] absolute top-10 left-20" />
-                <div className="h-96 w-96 bg-blue-500 rounded-full blur-[160px] absolute bottom-10 right-20" />
-            </div>
-
-            {/* Main card container */}
-            <div className="relative">
+        <div className="relative min-h-screen w-full bg-[#f5f5f5] px-4 py-10 sm:px-6">
+            <div className="mx-auto flex min-h-[calc(100vh-5rem)] w-full items-center justify-center">
+                <div className="relative w-full max-w-md">
                 {/* Clerk badge */}
                 <div className="absolute left-0 top-28 -translate-x-full -translate-y-1/2">
-                    <div className="clerk-ribbon flex items-center gap-1 text-xs opacity-70">
+                    <div className="clerk-ribbon flex items-center gap-1 text-xs">
                         <span>Secured by</span>
                         <Image
                             src="/clerk.svg"
@@ -120,9 +49,9 @@ export default function SignInPage() {
 
 
                 {/* Sign in card */}
-                <div className="relative w-full max-w-md bg-[#1a1d29]/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 px-8 py-10 space-y-8">
+                <div className="rounded-2xl border border-gray-100 bg-white p-8 shadow-[0_24px_70px_rgba(0,0,0,0.12)] space-y-8">
                     {/* Logo */}
-                    <div className="flex items-center gap-3 mb-8 text-white">
+                    <div className="flex items-center gap-3 mb-8 text-gray-900">
                         <Image
                             src="/logo.svg"
                             width={40}
@@ -137,41 +66,42 @@ export default function SignInPage() {
 
                     {/* Header */}
                     <header className="flex flex-col">
-                        <h1 className="text-xl font-semibold text-white">Sign in</h1>
-                        <p className="text-sm text-gray-400 mb-2">
+                        <h1 className="text-xl font-semibold text-gray-900">Sign in</h1>
+                        <p className="text-sm text-gray-500 mb-2">
                             to continue to DevOverflow
                         </p>
                     </header>
 
                     {/* Social login buttons */}
                     <div className="mt-4">
-                        <SignInSocial onOAuth={handleOAuth} />
+                        <SignInSocial onOAuth={signInWithOAuth} />
                     </div>
 
                     {/* Email form */}
-                    <SignInForm onSubmit={handleEmailSubmit} />
+                    <SignInForm onSubmit={sendMagicLink} />
 
                     {/* Footer */}
-                    <footer className="flex justify-evenly gap-x-15">
+                    <footer className="flex justify-evenly gap-x-15 text-gray-600">
                         <p>
                             No account?{" "}
-                            <Link href="/sign-up" className="text-orange-400 hover:text-orange-300 transition-colors">
+                            <Link href="/sign-up" className="text-orange-500 hover:text-orange-600 transition-colors">
                                 Sign up
                             </Link>
                         </p>
                         <nav className="flex gap-3">
-                            <button className="hover:text-gray-300 transition-colors">
+                            <button className="hover:text-gray-800 transition-colors">
                                 Help
                             </button>
-                            <button className="hover:text-gray-300 transition-colors">
+                            <button className="hover:text-gray-800 transition-colors">
                                 Privacy
                             </button>
-                            <button className="hover:text-gray-300 transition-colors">
+                            <button className="hover:text-gray-800 transition-colors">
                                 Terms
                             </button>
                         </nav>
                     </footer>
                 </div>
+            </div>
             </div>
         </div>
     );

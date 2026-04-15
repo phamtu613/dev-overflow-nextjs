@@ -2,29 +2,22 @@
   "extends": "@repo/typescript-config/nextjs.json",
   "compilerOptions": {
     "jsx": "preserve",
+    "moduleResolution": "bundler",
+    "paths": {
+      "@/*": ["./*"]
+    },
     "plugins": [
       {
         "name": "next"
       }
-    ],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "react": [
-        "./node_modules/@types/react"
-      ]
-    }
+    ]
   },
   "include": [
+    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "next-env.d.ts",
-    "next.config.js",
-    ".next/types/**/*.ts",
+    "**/*.d.ts",
+    ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

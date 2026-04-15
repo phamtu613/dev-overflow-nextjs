@@ -1,4 +1,9 @@
 export const OAUTH_PROVIDERS = {
+    github: {
+        label: "GitHub",
+        icon: "/social/github-mark.svg",
+        strategy: "oauth_github",
+    },
     google: {
         label: "Google",
         icon: "/social/google.svg",
