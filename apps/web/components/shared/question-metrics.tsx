@@ -16,11 +16,11 @@ export function QuestionMetrics({
   variant = "default",
   className,
 }: QuestionMetricsProps) {
-  const metrics = [
-    { icon: ThumbsUp, value: votes, label: "Votes" },
-    { icon: MessageCircle, value: answers, label: "Answers" },
-    { icon: Eye, value: views, label: "Views" },
-  ];
+ const metrics = [
+  { icon: ThumbsUp, value: Number(votes || 0), label: "Votes" },
+  { icon: MessageCircle, value: Number(answers || 0), label: "Answers" },
+  { icon: Eye, value: Number(views || 0), label: "Views" },
+];
 
   return (
     <div className={cn("flex items-center", className)}>

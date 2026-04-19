@@ -62,7 +62,7 @@ export function SavedQuestionCard({ question }: SavedQuestionCardProps) {
               </span>
             </div>
             <span className="text-xs leading-[15.6px] text-dark-400 dark:text-light-700">
-              • asked {question.timestamp}
+              • asked <p>{question.views.toLocaleString("vi-VN")} views</p>
             </span>
           </div>
 
