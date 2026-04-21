@@ -16,41 +16,48 @@ export function QuestionMetrics({
   variant = "default",
   className,
 }: QuestionMetricsProps) {
- const metrics = [
-  { icon: ThumbsUp, value: Number(votes || 0), label: "Votes" },
-  { icon: MessageCircle, value: Number(answers || 0), label: "Answers" },
-  { icon: Eye, value: Number(views || 0), label: "Views" },
-];
+  const metrics = [
+    { icon: ThumbsUp, value: Number(votes || 0), label: "Votes" },
+    { icon: MessageCircle, value: Number(answers || 0), label: "Answers" },
+    { icon: Eye, value: Number(views || 0), label: "Views" },
+  ];
 
   return (
-    <div className={cn("flex items-center", className)}>
+    <div
+      className={cn(
+        "flex flex-wrap items-center gap-2 text-slate-500",
+        className
+      )}
+    >
       {metrics.map(({ icon: Icon, value, label }) => (
         <div
           key={label}
           className={cn(
-            "flex items-center cursor-pointer transition-opacity hover:opacity-80",
-            variant === "default" ? "gap-1 mr-6 last:mr-0" : "gap-0.5 mr-2.5 last:mr-0"
+            "flex items-center rounded-full transition",
+            variant === "default"
+              ? "gap-1.5 bg-slate-50 px-3 py-1.5 hover:bg-orange-50"
+              : "gap-1 px-2 py-1 hover:bg-slate-100"
           )}
         >
           <Icon
             className={cn(
               "shrink-0",
               variant === "default"
-                ? "size-4 text-[#1DA1F2]"
-                : "w-4 h-4 text-light-900 dark:text-light-800"
+                ? "size-4 text-orange-500"
+                : "h-4 w-4 text-slate-500"
             )}
           />
           <span
             className={cn(
-              "text-xs",
+              "text-xs font-medium",
               variant === "default"
-                ? "text-color-foreground"
-                : "leading-[15.6px] text-dark-400 dark:text-light-700"
+                ? "text-slate-700"
+                : "leading-[15.6px] text-slate-500"
             )}
           >
             {value.toLocaleString()}
             {variant === "default" && (
-              <span className="text-xs text-color-muted ml-1">{label}</span>
+              <span className="ml-1 text-xs text-slate-400">{label}</span>
             )}
             {variant === "compact" && ` ${label}`}
           </span>
@@ -59,4 +66,3 @@ export function QuestionMetrics({
     </div>
   );
 }
-

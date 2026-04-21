@@ -10,12 +10,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-black bg-[url('/bg-dark.png')] bg-cover bg-no-repeat">
+      <body className="min-h-screen bg-[radial-gradient(circle_at_top,_#fff5eb_0%,_#fffaf5_28%,_#f4f7fb_100%)] text-slate-900 antialiased">
         <ClerkProvider>
           <ClerkAxiosBridge />
-          <div className="flex min-h-screen items-center justify-center">
-            {children}
-          </div>
+          {children}
         </ClerkProvider>
       </body>
     </html>

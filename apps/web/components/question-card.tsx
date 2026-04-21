@@ -1,52 +1,58 @@
+import type { Question } from "@/types";
 import { QuestionMetrics } from "@/components/shared/question-metrics";
 import { Badge } from "@repo/ui/badge";
+import Image from "next/image";
 import Link from "next/link";
 
 interface QuestionCardProps {
-  question: any;
+  question: Question;
 }
 
 export function QuestionCard({ question }: QuestionCardProps) {
   return (
-    <article className="border p-9 rounded-xl border-[#C8CBD954] dark:bg-[#11141C] dark:text-card-foreground dark:border-b-background text-color-foreground bg-color-background dark:border-border transition dark:shadow-[0_0_40px_rgba(0,0,0,0.35)] hover:shadow-md">
-      <div className="flex items-start justify-between mb-4">
-        <div>
+    <article className="group rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_18px_44px_rgba(148,163,184,0.12)] transition hover:-translate-y-0.5 hover:shadow-[0_22px_52px_rgba(249,115,22,0.14)] md:p-7">
+      <div className="flex items-start justify-between gap-4">
+        <div className="min-w-0 flex-1">
+          <div className="mb-4 flex flex-wrap gap-2">
+            {question.tags.map((tag) => (
+              <Badge
+                key={tag.id}
+                variant="secondary"
+                className="rounded-full border border-orange-100 bg-orange-50 px-3 py-1 text-[11px] font-semibold tracking-wide text-orange-600 hover:bg-orange-100"
+              >
+                {tag.name}
+              </Badge>
+            ))}
+          </div>
+
           <Link
             href={`/ask-question/${question.slug}-${question.id}`}
-            className="text-lg font-semibold text-color-foreground mb-2 line-clamp-2 hover:text-primary cursor-pointer transition-colors"
+            className="line-clamp-2 text-lg font-semibold tracking-tight text-slate-900 transition group-hover:text-orange-500 md:text-[22px]"
           >
             {question.title}
           </Link>
-          <p className="text-sm text-muted-foreground line-clamp-2">
+          <p className="mt-3 line-clamp-2 max-w-3xl text-sm leading-6 text-slate-500">
             {question.excerpt}
           </p>
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-2 mb-4">
-        {question.tags.map((tag: any) => (
-          <Badge
-            key={tag.id}
-            variant="secondary"
-            className="bg-light-800 text-color-foreground cursor-pointer p-2 hover:bg-light-700 transition-colors"
-          >
-            {tag.name}
-          </Badge>
-        ))}
-      </div>
-
-      <div className="flex items-center justify-between">
+      <div className="mt-6 flex flex-col gap-4 border-t border-slate-100 pt-5 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-center gap-3">
-          <img
-            src={question.author.avatar || "/placeholder.svg"}
+          <div className="overflow-hidden rounded-2xl ring-2 ring-orange-100">
+            <Image
+            src={question.author.avatar || "/avatar.png"}
             alt={question.author.name}
-            className="w-6 h-6 rounded-full"
+            width={40}
+            height={40}
+            className="h-10 w-10 rounded-2xl object-cover"
           />
-          <div className="flex items-center">
-            <p className="text-sm font-medium text-color-foreground hover:text-primary cursor-pointer transition-colors">
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-slate-800 transition group-hover:text-orange-500">
               {question.author.name}
             </p>
-            <p className="text-xs pl-2">• asked {question.timestamp}</p>
+            <p className="text-xs text-slate-400">asked {question.timestamp}</p>
           </div>
         </div>
 
@@ -55,6 +61,7 @@ export function QuestionCard({ question }: QuestionCardProps) {
           answers={question.answer}
           views={question.views}
           variant="default"
+          className="justify-start lg:justify-end"
         />
       </div>
     </article>

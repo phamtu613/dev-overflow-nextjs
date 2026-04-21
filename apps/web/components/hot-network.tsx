@@ -1,21 +1,26 @@
+import type { HotItem } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
 interface HotNetworkProps {
-  items: any[];
+  items: HotItem[];
 }
 
 export function HotNetwork({ items }: HotNetworkProps) {
   return (
-    <div className="dark:bg-card border border-[#C8CBD954] dark:border-border rounded-lg p-6">
-      <h2 className="text-lg font-semibold text-color-foreground mb-4">
+    <div className="border border-slate-200/80 p-6">
+      <h2 className="mb-1 text-lg font-semibold tracking-tight text-slate-950">
         Hot Network
       </h2>
+      <p className="mb-5 text-sm leading-6 text-slate-500">
+        Fast-moving conversations from across the wider network.
+      </p>
       <div className="space-y-4">
         {items.map((item, index) => (
-          <div
+          <Link
             key={item.id}
-            className="flex items-start gap-3 hover:opacity-80 cursor-pointer transition-opacity"
+            href={`/ask-question/${item.slug}-${item.id}`}
+            className="flex items-start gap-3 rounded-2xl px-3 py-3 transition hover:bg-orange-50"
           >
             <div className="shrink-0 mt-0.5">
               <Image
@@ -30,13 +35,15 @@ export function HotNetwork({ items }: HotNetworkProps) {
                 height={20}
               />
             </div>
-            <Link
-              href={`/ask-question/${item.slug}-${item.id}`}
-              className="text-sm text-color-foreground line-clamp-2 hover:text-primary transition-colors"
-            >
-              {item.title}
-            </Link>
-          </div>
+            <div className="min-w-0">
+              <p className="line-clamp-2 text-sm font-medium leading-6 text-slate-700 transition hover:text-orange-500">
+                {item.title}
+              </p>
+              <p className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-400">
+                network highlight
+              </p>
+            </div>
+          </Link>
         ))}
       </div>
     </div>
