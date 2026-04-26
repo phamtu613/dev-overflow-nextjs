@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { registerAuthTokenGetter } from "@/lib/api";
 import { getJwtSegmentCount, logClerkToken } from "@/lib/api/jwt-debug";
 
-const clerkJwtTemplate = process.env.NEXT_PUBLIC_CLERK_JWT_TEMPLATE || "default";
+const clerkJwtTemplate = process.env.NEXT_PUBLIC_CLERK_JWT_TEMPLATE || "backend-test";
 
 export function ClerkAxiosBridge() {
     const { isSignedIn, isLoaded, getToken } = useAuth();
